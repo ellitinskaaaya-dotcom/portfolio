@@ -21,6 +21,8 @@
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
+  html:has(.loader:not(.up)) { overflow: hidden; }
+  html:has(.loader:not(.up)) body { overflow: hidden; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.5 var(--body); overflow-x: clip; }
   h1, h2, h3, p, ul, ol, figure, dl, dd { margin: 0; padding: 0; }
   ul, ol { list-style: none; }
@@ -122,9 +124,11 @@
   .goods img { display: block; width: 96px; border-radius: 12px; box-shadow: 0 14px 28px rgb(0 0 0 / .45); }
   .jr .phone { --w: 176px; right: 4%; top: 150px; }
   .card:hover::after { opacity: .82; }
-  .card h3 { font-size: clamp(28px, 2.6vw, 38px); }
+  .card h3 { font-size: clamp(32px, 3.4vw, 52px); }
   .card-line { margin-top: 8px; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.25; }
-  .card-more { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; font-weight: 500; }
+  .card-more { display: inline-flex; align-items: center; gap: 10px; width: fit-content; margin-top: 18px; padding: 11px 16px 11px 18px; border-radius: 99px; background: var(--ink); color: #fff; font-weight: 500; transition: background .3s, color .3s; }
+  .is-ember .card-more { background: #fff; color: var(--ink); }
+  .card:hover .card-more { background: var(--blue); color: #fff; }
   .card-more i { display: block; width: 18px; height: 18px; flex: none; }
   .card-more svg { display: block; width: 100%; height: 100%; fill: currentColor; overflow: visible; }
   .view { --side-case: var(--side); }
@@ -147,6 +151,13 @@
   .facts span { color: var(--mute); font-size: 15px; }
   .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 22px var(--gutter) calc(26px + env(safe-area-inset-bottom, 0px)) var(--side); color: rgb(255 255 255 / .72); background: var(--blue); font-size: 14px; }
   .foot a { text-decoration: none; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .doc-body { display: grid; gap: 14px; max-width: 46em; font-size: 17px; line-height: 1.6; }
+  .doc-body h2 { margin-top: 18px; font-size: 22px; font-weight: 500; line-height: 1.3; }
+  .doc .page { font-size: clamp(40px, 5vw, 76px); }
+  .consent { position: fixed; z-index: 25; right: 18px; bottom: 18px; display: grid; gap: 14px; justify-items: start; width: min(420px, calc(100% - 36px)); padding: 20px; border-radius: 18px; background: #fff; color: var(--ink); font-size: 15px; line-height: 1.45; box-shadow: 0 20px 50px rgb(18 19 43 / .2); }
+  .consent a { color: var(--blue); }
+  .consent[hidden] { display: none; }
   .foot a:hover { color: #fff; }
   .stat { display: grid; justify-items: center; gap: 8px; width: min(100%, 560px); padding: 40px 20px; border-radius: 14px; background: #141414; text-align: center; }
   .stat b { font: 800 clamp(90px, 13vw, 190px)/.9 var(--head); }
@@ -180,16 +191,16 @@
   a:not(.btn):not(.card):not(.logo):not(.drawer a) { transition: color .25s; }
   .view > a:not(.btn):hover, .logo:hover { color: var(--hot); }
   .card-more { transition: translate .3s; }
-  .card:hover .card-more { translate: 6px 0; }
+
   ::selection { background: var(--lav); color: var(--ink); }
   .flow { position: relative; }
   .stage { position: relative; width: min(100%, 380px); height: 380px; margin: 0 auto; }
   .stack { display: block; width: 100%; height: 100%; }
   .pilltag { position: absolute; z-index: 2; padding: 9px 16px; border-radius: 99px; font: 600 13px/1 var(--body); letter-spacing: .01em; white-space: nowrap; pointer-events: none; }
-  .p1 { left: 12%; top: 13%; rotate: -10deg; background: var(--lav); color: var(--ink); box-shadow: 0 10px 24px rgb(54 64 255 / .35); }
-  .p2 { right: 10%; top: 8%; rotate: 8deg; background: var(--butter); color: var(--ink); box-shadow: 0 10px 24px rgb(255 210 63 / .3); }
-  .p3 { left: 1%; bottom: 14%; rotate: 6deg; background: var(--mag); color: var(--ink); box-shadow: 0 10px 24px rgb(255 90 54 / .35); }
-  .p4 { right: 0; bottom: 22%; rotate: -7deg; background: var(--mint); color: var(--ink); box-shadow: 0 10px 24px rgb(0 0 0 / .25); }
+  .p1 { left: 6%; top: 9%; rotate: -10deg; background: var(--lav); color: var(--ink); box-shadow: 0 10px 24px rgb(54 64 255 / .35); }
+  .p2 { right: 4%; top: 4%; rotate: 8deg; background: var(--butter); color: var(--ink); box-shadow: 0 10px 24px rgb(255 210 63 / .3); }
+  .p3 { left: 4%; bottom: 12%; rotate: 6deg; background: var(--mag); color: var(--ink); box-shadow: 0 10px 24px rgb(255 90 54 / .35); }
+  .p4 { right: 4%; bottom: 20%; rotate: -7deg; background: var(--mint); color: var(--ink); box-shadow: 0 10px 24px rgb(0 0 0 / .25); }
   .stack-floor { position: absolute; left: 50%; bottom: 6px; translate: -50% 0; width: 220px; height: 18px; border-radius: 50%; background: rgb(0 0 0 / .45); filter: blur(12px); pointer-events: none; }
   .steps { display: grid; gap: 0 32px; list-style: none; margin: 0; padding: 0; min-width: 0; counter-reset: s; }
   .steps li { display: grid; gap: 10px; align-content: start; padding-block: 18px 32px; border-top: 1px solid var(--line); counter-increment: s; }
@@ -240,7 +251,25 @@
   .beat { display: grid; gap: 6px; }
   .label { color: var(--mute); }
   .roles { display: grid; gap: 4px; }
-  .part { display: grid; gap: 12px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 760px; }
+  .part { display: grid; gap: 14px; padding-top: 26px; border-top: 1px solid var(--line); max-width: 1120px; }
+  .part .h2 { font-size: clamp(30px, 3vw, 46px); }
+  .part-text { display: grid; gap: 12px; max-width: 40em; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.55; }
+  .back { width: fit-content; text-decoration: none; color: var(--mute); }
+  .back::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 10px; border-left: 1.5px solid; border-bottom: 1.5px solid; rotate: 45deg; translate: 0 -1px; }
+  .back:hover { color: var(--ink); }
+  .case-hero { display: grid; gap: 22px; padding: clamp(22px, 4vw, 56px); border-radius: clamp(20px, 2.4vw, 32px); background: var(--case-bg, #fff); color: var(--case-ink, var(--ink)); }
+  .case-hero .lead { max-width: 28em; }
+  .case-meta { display: grid; gap: 16px; margin: 6px 0 10px; }
+  .case-meta dt { margin-bottom: 4px; font-size: 14px; opacity: .62; }
+  .case-meta dd { margin: 0; max-width: 34em; }
+  .case-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .case-tags span { padding: 6px 12px; border-radius: 99px; box-shadow: inset 0 0 0 1px currentColor; font-size: 14px; }
+  .case-hero .win { box-shadow: 0 30px 60px rgb(0 0 0 / .18); }
+  .case-next { display: grid; gap: 6px; max-width: 1120px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); text-decoration: none; }
+  .case-next span { color: var(--mute); }
+  .case-next b { font: 800 clamp(44px, 6vw, 96px)/.95 var(--head); text-transform: uppercase; transition: color .3s; }
+  .case-next:hover b { color: var(--blue); }
+  .case-cta { display: grid; gap: 20px; justify-items: start; max-width: 1120px; margin-top: 24px; }
   .line { display: grid; gap: 2px; }
   .todo { color: var(--hot); }
   .next { font: 800 clamp(44px, 6vw, 96px)/.95 var(--head); text-transform: uppercase; text-decoration: none; }
@@ -251,7 +280,7 @@
   input:focus, textarea:focus, select:focus { outline: 0; border-color: var(--hot); }
 
   /* Прелоадер и курсор */
-  .loader { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; overflow: hidden; background: var(--bg); color: var(--ink); border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
+  .loader { position: fixed; z-index: 30; inset: 0 0 auto; height: 100vh; height: 100lvh; display: grid; place-items: center; overflow: hidden; background: var(--bg); color: var(--ink); border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
   .loader.up { transform: translateY(-104%); border-radius: 0 0 50% 50% / 0 0 18vh 18vh; }
   .lblob { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); opacity: .75; animation: drift 4s ease-in-out infinite alternate; }
   .la { left: -18vmax; top: -22vmax; background: #8f95ff; }
@@ -260,9 +289,9 @@
   .lword { position: relative; overflow: hidden; padding-top: .1em; }
   .lword b { display: block; font: 800 clamp(72px, 13vw, 210px)/.9 var(--head); text-transform: uppercase; }
   .lword b.roll { animation: roll .45s cubic-bezier(.2, .8, .2, 1); }
-  .lbar { position: absolute; left: 24px; right: 24px; bottom: 32px; height: 3px; border-radius: 3px; background: rgb(28 36 51 / .08); overflow: hidden; }
+  .lbar { position: absolute; left: 24px; right: 24px; bottom: calc(32px + 100lvh - 100svh); height: 3px; border-radius: 3px; background: rgb(28 36 51 / .08); overflow: hidden; }
   .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, var(--blue), var(--hot), var(--butter)); }
-  .lnum { position: absolute; right: 24px; bottom: 50px; font: 800 clamp(44px, 6vw, 96px)/1 var(--head); font-variant-numeric: tabular-nums; }
+  .lnum { position: absolute; right: 24px; bottom: calc(50px + 100lvh - 100svh); font: 800 clamp(44px, 6vw, 96px)/1 var(--head); font-variant-numeric: tabular-nums; }
   .lnum small { font-size: .45em; margin-left: .08em; color: var(--blue); }
   @keyframes roll { from { translate: 0 105%; } }
   @keyframes drift { to { translate: 6vmax 4vmax; scale: 1.12; } }
@@ -280,7 +309,7 @@
     .steps li:nth-child(3), .steps li:nth-child(4) { grid-column: 3; }
     .steps li:nth-child(odd) { grid-row: 1; }
     .steps li:nth-child(even) { grid-row: 2; }
-    .stage { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: clamp(300px, 32vw, 460px); height: clamp(400px, 40vw, 540px); margin: 0; }
+    .stage { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: clamp(250px, 26vw, 380px); height: clamp(340px, 33vw, 470px); margin: 0; }
     .stack-floor { bottom: 30px; }
     .rows li { grid-template-columns: 2fr 3fr; align-items: baseline; gap: 32px; }
     .about { grid-template-columns: 300px minmax(0, 1fr); gap: 56px; }
@@ -288,6 +317,8 @@
     .facts li { grid-template-columns: minmax(0, 1fr) 14em; align-items: baseline; gap: 24px; }
     .info { grid-template-columns: repeat(4, 1fr); }
     .line { grid-template-columns: 1fr 3fr; gap: 20px; }
+    .part { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 56px; align-items: start; }
+    .case-meta { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 40px; }
   }
   @media (min-width: 860px) and (max-width: 1239px) {
     .desk { width: 40%; height: 58%; }
@@ -317,6 +348,7 @@
     .card { margin-bottom: 42vh; }
     .card:last-child { margin-bottom: 24px; }
     .foot { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+    .consent { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); width: auto; z-index: 26; }
     .desk { width: 100%; }
       .aside { margin-top: 22px; }
     }
@@ -461,21 +493,88 @@
     <a class="btn" href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Обсудить задачу<i aria-hidden="true"></i></a>
     <ul class="socials" aria-label="Где меня найти">
       <li><a href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Telegram</a></li>
-      <li><a href="https://www.instagram.com/litinskaaya" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.instagram.com/litinskaaya" target="_blank" rel="noopener">Instagram*</a></li>
       <li><a href="https://www.behance.net/3525e811" target="_blank" rel="noopener">Behance</a></li>
     </ul>
+    <p class="note">* Instagram принадлежит компании Meta, признанной экстремистской организацией и запрещённой на территории Российской Федерации.</p>
   </section>
-  <footer class="foot"><span>Елена Литинская, 2026</span><a href="#">Наверх</a></footer>
 </main>
 
 <section class="view" id="view-case" hidden>
-  <a href="#projects">← Все проекты</a>
-  <h1 class="page" id="case-title"></h1>
-  <p class="lead" id="case-head"></p>
-  <p class="note" id="case-role"></p>
+  <a class="back" href="#projects">Все проекты</a>
+  <header class="case-hero" id="case-hero">
+    <h1 class="page" id="case-title"></h1>
+    <p class="lead" id="case-head"></p>
+    <dl class="case-meta">
+      <div><dt>Роль</dt><dd id="case-role"></dd></div>
+      <div><dt>Направления</dt><dd class="case-tags" id="case-tags"></dd></div>
+    </dl>
+    <div id="case-shot"></div>
+  </header>
   <div class="story" id="case-story"></div>
-  <a class="btn" href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Обсудить задачу<i aria-hidden="true"></i></a>
+  <a class="case-next" id="case-next" href="#"><span>Следующий проект</span><b id="case-next-title"></b></a>
+  <div class="case-cta">
+    <p class="lead">Расскажите о продукте и о том, что хотите изменить.</p>
+    <a class="btn" href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Обсудить задачу<i aria-hidden="true"></i></a>
+  </div>
 </section>
+
+<section class="view doc" id="view-privacy" hidden>
+  <a class="back" href="#">На главную</a>
+  <h1 class="page">Политика конфиденциальности</h1>
+  <p class="note">Редакция от 8 ноября 2026 года</p>
+  <div class="doc-body">
+    <h2>1. Общие положения</h2>
+    <p>Политика описывает, какие данные обрабатываются при посещении сайта-портфолио Елены Литинской (далее — сайт) и при обращении к ней через указанные на сайте каналы связи. Политика составлена с учётом Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+    <p>Оператор персональных данных — Елена Литинская. Связаться с оператором можно в Telegram: <a href="https://t.me/ellitinskaya" target="_blank" rel="noopener">@ellitinskaya</a>.</p>
+    <h2>2. Какие данные обрабатываются</h2>
+    <p>На сайте нет форм, регистрации, рекламных и аналитических счётчиков. Сайт не собирает имя, телефон, адрес электронной почты и другие персональные данные посетителей.</p>
+    <p>Если вы пишете оператору в Telegram, Instagram или Behance, оператор получает данные, которые вы сами указываете в сообщении и в профиле сервиса: имя или псевдоним, имя пользователя, текст сообщения и вложения.</p>
+    <p>При открытии страниц технические данные браузера (IP-адрес, тип браузера и устройства, время запроса) получают сервисы, через которые работает сайт: хостинг GitHub Pages (GitHub, Inc., США), шрифты Google Fonts (Google LLC, США), библиотеки с серверов cdnjs (Cloudflare, Inc., США) и jsDelivr. Эти данные обрабатываются по правилам указанных сервисов; оператор к ним доступа не имеет.</p>
+    <h2>3. Цели обработки</h2>
+    <p>Данные из сообщений используются только для ответа на обращение, обсуждения задачи и дальнейшего сотрудничества по вашему запросу.</p>
+    <h2>4. Cookie и хранилище браузера</h2>
+    <p>Сайт не использует рекламные и аналитические cookie. В локальном хранилище вашего браузера сохраняются две технические отметки: что вы уже видели заставку загрузки и что вы ознакомились с уведомлением о cookie. Эти отметки не передаются оператору и удаляются вместе с данными сайта в настройках браузера.</p>
+    <h2>5. Срок хранения и защита</h2>
+    <p>Переписка хранится, пока это нужно для обсуждения и выполнения работы, либо до вашего запроса на удаление. Оператор не передаёт данные из переписки третьим лицам, кроме случаев, предусмотренных законом.</p>
+    <h2>6. Ваши права</h2>
+    <p>Вы вправе узнать, какие ваши данные обрабатываются, потребовать их уточнения или удаления и отозвать согласие на обработку. Для этого напишите оператору в Telegram. Ответ будет дан в сроки, установленные законом.</p>
+    <h2>7. Изменения политики</h2>
+    <p>Оператор может обновлять политику. Актуальная редакция всегда опубликована на этой странице.</p>
+  </div>
+</section>
+
+<section class="view doc" id="view-terms" hidden>
+  <a class="back" href="#">На главную</a>
+  <h1 class="page">Пользовательское соглашение</h1>
+  <p class="note">Редакция от 8 ноября 2026 года</p>
+  <div class="doc-body">
+    <h2>1. Предмет соглашения</h2>
+    <p>Соглашение регулирует использование сайта-портфолио Елены Литинской (далее — сайт). Открывая страницы сайта, вы соглашаетесь с этими условиями.</p>
+    <h2>2. Назначение сайта</h2>
+    <p>Сайт носит информационный характер: на нём представлены работы, подход и контакты дизайнера. Информация на сайте не является публичной офертой. Условия работы обсуждаются отдельно для каждого проекта.</p>
+    <h2>3. Права на материалы</h2>
+    <p>Тексты, дизайн сайта и авторские материалы принадлежат Елене Литинской. Макеты, логотипы и изображения проектов показаны как примеры работ; права на товарные знаки и материалы брендов принадлежат их владельцам. Копирование и использование материалов без письменного согласия правообладателя не допускается.</p>
+    <h2>4. Ссылки на другие сервисы</h2>
+    <p>Сайт содержит ссылки на Telegram, Instagram и Behance. При переходе действуют правила этих сервисов. Instagram принадлежит компании Meta, признанной экстремистской организацией и запрещённой на территории Российской Федерации.</p>
+    <h2>5. Ответственность</h2>
+    <p>Сайт предоставляется «как есть». Владелец сайта старается поддерживать его работу и актуальность информации, но не гарантирует непрерывную доступность страниц и сторонних сервисов.</p>
+    <h2>6. Персональные данные</h2>
+    <p>Порядок обработки данных описан в <a href="#privacy">политике конфиденциальности</a>.</p>
+    <h2>7. Изменения</h2>
+    <p>Владелец сайта может изменять соглашение. Новая редакция действует с момента публикации на этой странице.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>Елена Литинская, 2026</span>
+  <nav class="foot-links" aria-label="Документы"><a href="#privacy">Политика конфиденциальности</a><a href="#terms">Пользовательское соглашение</a><a href="#">Наверх</a></nav>
+</footer>
+
+<div class="consent" id="consent" role="region" aria-label="Уведомление о cookie" hidden>
+  <p>Сайт не использует рекламные и аналитические cookie. Для работы страниц в браузере сохраняются только технические отметки. Подробнее — в <a href="#privacy">политике конфиденциальности</a>.</p>
+  <button class="btn" type="button" id="consent-ok">Принять<i aria-hidden="true"></i></button>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -653,21 +752,41 @@
     document.getElementById("home-cards").append(a);
   });
 
+  // Цвет шапки кейса совпадает с фоном его превью.
+  const CASE_TONE = { milerd: ["#f1eee9", "#12132b"], "semifredo-studio": ["#ebeae5", "#12132b"], journalier: ["#0d0c0b", "#ffffff"] };
   function showCase(item) {
+    const hero = document.getElementById("case-hero");
+    const [tone, ink] = CASE_TONE[item.id] || ["#fff", "#12132b"];
+    hero.style.setProperty("--case-bg", tone);
+    hero.style.setProperty("--case-ink", ink);
     document.getElementById("case-title").textContent = item.title;
     document.getElementById("case-head").textContent = item.head;
-    document.getElementById("case-role").textContent = item.role;
+    const role = item.role.replace(/^Моя роль:\s*/, "");
+    document.getElementById("case-role").textContent = role.charAt(0).toUpperCase() + role.slice(1);
+    const tags = document.getElementById("case-tags");
+    tags.replaceChildren(...item.tags.split(" · ").map((tag) => el("span", tag)));
+    const rows = GALLERY[item.id] || [];
+    const shot = document.getElementById("case-shot");
+    shot.replaceChildren();
+    if (rows[0]) {
+      const first = frameRow([rows[0][0]]);
+      first.querySelectorAll("img").forEach((img) => { img.loading = "eager"; });
+      shot.append(first);
+    }
     const story = document.getElementById("case-story");
     story.replaceChildren();
     item.parts.forEach(([title, paragraphs], i) => {
       const part = el("section", "", "part");
-      part.append(el("h2", title, "h2"));
-      paragraphs.forEach((text) => part.append(el("p", text)));
+      const text = el("div", "", "part-text");
+      paragraphs.forEach((line) => text.append(el("p", line)));
+      part.append(el("h2", title, "h2"), text);
       story.append(part);
-      const rows = GALLERY[item.id] || [];
-      if (rows[i]) story.append(frameRow(rows[i]));
+      if (rows[i + 1]) story.append(frameRow(rows[i + 1]));
     });
-    (GALLERY[item.id] || []).slice(item.parts.length).forEach((row) => story.append(frameRow(row)));
+    rows.slice(item.parts.length + 1).forEach((row) => story.append(frameRow(row)));
+    const next = CASES[(CASES.indexOf(item) + 1) % CASES.length];
+    document.getElementById("case-next").href = `#project-${next.id}`;
+    document.getElementById("case-next-title").textContent = next.title;
   }
 
 
@@ -686,7 +805,12 @@
     lenis = new Lenis({ lerp: .13, wheelMultiplier: 1 });
     (function glide(time) { lenis.raf(time); requestAnimationFrame(glide); })(0);
   }
-  const jump = (y) => (lenis ? lenis.scrollTo(y, { immediate: true, force: true }) : scrollTo(0, y));
+  // Переход на другую страницу сайта всегда открывает её с начала: высота страницы меняется, поэтому прокрутка ставится дважды.
+  const jump = (y) => {
+    const set = () => { if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } scrollTo(0, y); };
+    set();
+    requestAnimationFrame(() => requestAnimationFrame(set));
+  };
   document.addEventListener("click", (e) => {
     const link = e.target.closest?.('a[href^="#"]');
     const home = !document.getElementById("view-home").hidden;
@@ -756,14 +880,20 @@
   function route() {
     const hash = location.hash.slice(1);
     const item = CASES.find((entry) => `project-${entry.id}` === hash);
+    const doc = hash === "privacy" || hash === "terms" ? document.getElementById(`view-${hash}`) : null;
     const home = document.getElementById("view-home");
     const page = document.getElementById("view-case");
-    home.hidden = !!item;
-    home.style.display = item ? "none" : "";
+    home.hidden = !!item || !!doc;
+    home.style.display = home.hidden ? "none" : "";
     page.hidden = !item;
     page.style.display = item ? "" : "none";
+    document.querySelectorAll(".doc").forEach((node) => { node.hidden = node !== doc; node.style.display = node === doc ? "" : "none"; });
     toggle(false);
-    if (item) {
+    // 3D-сцены главной считают размер холста при показе: если сайт открыли сразу на кейсе, холсты пересчитываются при возврате.
+    if (!home.hidden) setTimeout(() => dispatchEvent(new Event("resize")), 0);
+    if (doc) {
+      jump(0);
+    } else if (item) {
       showCase(item);
       reveal(page);
       jump(0);
@@ -1351,14 +1481,14 @@
       "img/site/folder-3.webp",
       "img/site/folder-4.webp"
     ];
-        const cardGeo = new T.PlaneGeometry(.86, 1.62);
+        const cardGeo = new T.PlaneGeometry(1.02, 1.92);
     const cards = FOLDER_SCREENS.map((src, i) => {
       const paper = document.createElement("canvas");
       paper.width = 430;
       paper.height = 810;
       const map = new T.CanvasTexture(paper);
       map.encoding = T.sRGBEncoding;
-      map.anisotropy = 4;
+      map.anisotropy = 8;
       const image = new Image();
       image.onload = () => {
         const pen = paper.getContext("2d");
@@ -1374,17 +1504,17 @@
       };
       image.src = src;
       const mesh = new T.Mesh(cardGeo, new T.MeshBasicMaterial({ map, transparent: true, toneMapped: false }));
-      mesh.userData = { x: (i - 1.5) * .62, z: -.3 + i * .07, r: (1.5 - i) * .08 };
+      mesh.userData = { x: (i - 1.5) * .8, z: -.3 + i * .07, r: (1.5 - i) * .06 };
       folder.add(mesh);
       return mesh;
     });
     // Передний карман: матовое голубое стекло.
-    const front = plate(rounded(-1.85, -1.3, 1.85, .02, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xc7c9ff, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .8, envMapIntensity: .9 })));
+    const front = plate(rounded(-1.85, -1.3, 1.85, -.5, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xc7c9ff, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .86, envMapIntensity: .9 })));
     front.position.z = .05;
     folder.add(front);
     // Светлая кромка по краю стекла.
-    const rimShape = rounded(-1.85, -1.3, 1.85, .02, .26);
-    rimShape.holes.push(rounded(-1.79, -1.24, 1.79, -.04, .22));
+    const rimShape = rounded(-1.85, -1.3, 1.85, -.5, .26);
+    rimShape.holes.push(rounded(-1.79, -1.24, 1.79, -.56, .22));
     const rim = new T.Mesh(new T.ShapeGeometry(rimShape, 12), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .55 }));
     rim.position.z = .11;
     folder.add(rim);
@@ -1408,7 +1538,7 @@
     paintLabel();
     document.fonts?.ready.then(paintLabel);
     const tag = new T.Mesh(new T.PlaneGeometry(3.2, .6), new T.MeshBasicMaterial({ map: labelMap, transparent: true, toneMapped: false }));
-    tag.position.set(.05, -1.0, .12);
+    tag.position.set(.05, -.92, .12);
     folder.add(tag);
 
     function fit() {
@@ -1443,7 +1573,7 @@
         const d = mesh.userData;
         lifts[i] += ((i === active ? 1 : 0) - lifts[i]) * .14;
         const up = rise * (.62 - Math.abs(1.5 - i) * .14) + lifts[i] * .5;
-        mesh.position.set(d.x * (.8 + rise * .35), -.1 + up + Math.sin(now / 1300 + i * 1.7) * .012, d.z + lifts[i] * .25);
+        mesh.position.set(d.x * (.86 + rise * .14), -.32 + up + Math.sin(now / 1300 + i * 1.7) * .012, d.z + lifts[i] * .25);
         mesh.rotation.z = d.r * (.6 + rise) - lifts[i] * d.r * .5;
       });
       renderer.render(scene, camera);
@@ -1504,6 +1634,16 @@
       if (t === 1) { clearInterval(timer); setTimeout(finish, 260); }
     }, 30);
   }
+
+  // Уведомление о cookie: показывается, пока его не приняли.
+  const consent = document.getElementById("consent");
+  let agreed = false;
+  try { agreed = localStorage.getItem("consent") === "1"; } catch (error) {}
+  if (!agreed) consent.hidden = false;
+  document.getElementById("consent-ok").addEventListener("click", () => {
+    consent.hidden = true;
+    try { localStorage.setItem("consent", "1"); } catch (error) {}
+  });
 
   // Кольцо-курсор догоняет мышь и растёт над ссылками.
   if (!still && matchMedia("(hover: hover) and (pointer: fine)").matches) {
