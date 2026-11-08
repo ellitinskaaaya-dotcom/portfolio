@@ -12,9 +12,9 @@
   /* Сетка по образцу chipsa.design: светлый фон, контент со сдвигом от левого края,
      плавающие элементы по краям экрана, скруглённые карточки кейсов в центральной колонке. */
   :root {
-    /* Палитра по референсу Chromia: тёплый светлый фон, почти чёрный с фиолетовым, плоские яркие акценты. */
-    --bg: #f2eeec; --ink: #1b1622; --mute: #6c6470; --line: #e0d9d7; --night: #1b1622; --panel: #1b1622; --hot: #e8285a; --tag: #ffc61a; --lime: #f1e4fb; --pink: #ffd1e1; --lav: #c98ff0; --butter: #ffc61a; --mag: #f0407f; --mint: #8fe388; --orange: #ff7a2e;
-    --dots: radial-gradient(circle, rgb(27 22 34 / .13) 1px, transparent 1.5px) 0 0 / 22px 22px;
+    /* Палитра: нейтральная светлая основа, чтобы работы были главными; фирменный ультрамарин на первом экране и в контакте; томатный только точечно. */
+    --bg: #f3f3f0; --ink: #12132b; --mute: #5f6177; --line: #dedfe6; --night: #12132b; --panel: #12132b; --blue: #3640ff; --hot: #ff5a36; --tag: #ffd23f; --lime: #e8e9ff; --pink: #e8e9ff; --lav: #c7c9ff; --butter: #ffd23f; --mag: #ff5a36; --mint: #ffffff; --orange: #ff5a36;
+    --dots: radial-gradient(circle, rgb(255 255 255 / .16) 1px, transparent 1.5px) 0 0 / 22px 22px;
     --side: 16px; --gutter: 16px; --stick: 76px; --gap: clamp(72px, 9vw, 136px);
     --body: "Sofia Sans", "Helvetica Neue", Arial, sans-serif;
     --head: "Sofia Sans Extra Condensed", "Arial Narrow", Arial, sans-serif;
@@ -56,13 +56,15 @@
 
 
   /* Первый экран */
-  .hero { position: relative; min-height: 100svh; padding: 112px var(--gutter) 90px var(--side); overflow: hidden; color: var(--ink);
-    background: radial-gradient(60% 70% at 78% 60%, #f6b6cf, transparent 70%), radial-gradient(50% 60% at 60% 95%, #d9a8f2, transparent 70%), #f2eeec; }
+  .hero { position: relative; min-height: 100svh; padding: 112px var(--gutter) 90px var(--side); overflow: hidden; color: #fff; border-radius: 0 0 clamp(24px, 3vw, 44px) clamp(24px, 3vw, 44px);
+    background: radial-gradient(60% 70% at 78% 60%, #8f95ff, transparent 70%), radial-gradient(50% 60% at 60% 95%, #f0b8e6, transparent 70%), #2f3be6; }
   .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: var(--dots); }
-  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; z-index: 2; pointer-events: none; background: linear-gradient(to bottom, transparent, var(--bg) 88%); }
-  .hero .btn + .btn { --fill: rgb(255 255 255 / .7); --fill-on: #fff; box-shadow: inset 0 0 0 1px var(--ink); }
-  .over-hero .logo { color: var(--ink); }
-  .over-night .logo { color: #f2eeec; }
+  .hero::after { content: none; }
+  .hero .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--butter); --text-on: var(--ink); }
+  .hero .btn + .btn { --fill: transparent; --text: #fff; --fill-on: #fff; --text-on: var(--ink); box-shadow: inset 0 0 0 1.5px #fff; }
+  .hero .role { color: rgb(255 255 255 / .78); }
+  .over-hero .logo { color: #fff; }
+  .over-night .logo, .over-blue .logo { color: #fff; }
   .field { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
   .desk { position: absolute; right: 0; bottom: 0; width: 56%; height: 78%; z-index: 2; pointer-events: none; }
   .hero h1 { position: relative; z-index: 3; max-width: 8.2em; }
@@ -136,28 +138,28 @@
   .dark { display: grid; gap: 20px; margin-top: var(--gap); margin-bottom: 0; padding: var(--gap) var(--gutter) var(--gap) var(--side); 
     background: var(--bg); }
   .about { display: grid; gap: 28px; align-items: start; }
-  .about-photo { margin: 0; width: min(100%, 260px); aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; background: radial-gradient(80% 70% at 30% 20%, #f6b6cf, transparent 70%), var(--lav); }
+  .about-photo { margin: 0; width: min(100%, 260px); aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; background: radial-gradient(80% 70% at 30% 15%, #8f95ff, transparent 70%), var(--blue); }
   .about-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
   .about-text { display: grid; gap: 20px; }
   .facts { display: grid; margin-top: 12px; border-top: 1px solid var(--line); }
   .facts li { display: grid; gap: 2px; padding-block: 14px; border-bottom: 1px solid var(--line); }
   .facts b { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.25; }
   .facts span { color: var(--mute); font-size: 15px; }
-  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 22px var(--gutter) calc(26px + env(safe-area-inset-bottom, 0px)) var(--side); color: var(--mute); font-size: 14px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 22px var(--gutter) calc(26px + env(safe-area-inset-bottom, 0px)) var(--side); color: rgb(255 255 255 / .72); background: var(--blue); font-size: 14px; }
   .foot a { text-decoration: none; }
-  .foot a:hover { color: var(--ink); }
+  .foot a:hover { color: #fff; }
   .stat { display: grid; justify-items: center; gap: 8px; width: min(100%, 560px); padding: 40px 20px; border-radius: 14px; background: #141414; text-align: center; }
   .stat b { font: 800 clamp(90px, 13vw, 190px)/.9 var(--head); }
   .stat span { color: #a8a7a3; }
 
   .block { display: grid; gap: 28px; padding: var(--gap) var(--gutter) 0 var(--side); }
   .block > *, .dark > * { max-width: 1040px; }
-  #contact { margin-top: var(--gap); padding-top: var(--gap); padding-bottom: calc(var(--gap) + 40px); color: var(--ink); background: var(--lav); }
+  #contact { margin-top: var(--gap); padding-top: var(--gap); padding-bottom: calc(var(--gap) + 40px); color: #fff; background: radial-gradient(70% 90% at 85% 10%, #6b72ff, transparent 70%), var(--blue); border-radius: clamp(24px, 3vw, 44px) clamp(24px, 3vw, 44px) 0 0; }
   .socials { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-  .socials a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 99px; color: var(--ink); text-decoration: none; font: 500 15px/1 var(--body); box-shadow: inset 0 0 0 1px var(--ink); transition: background .25s, color .25s; }
-  .socials a:hover { background: var(--ink); color: #fff; box-shadow: none; }
-  #contact .btn { --fill-on: #fff; }
-  #contact .note { color: rgb(27 22 34 / .7); }
+  .socials a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 99px; color: #fff; text-decoration: none; font: 500 15px/1 var(--body); box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / .8); transition: background .25s, color .25s; }
+  .socials a:hover { background: #fff; color: var(--ink); box-shadow: none; }
+  #contact .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--butter); --text-on: var(--ink); }
+  #contact .note { color: rgb(255 255 255 / .8); }
   .rows li { display: grid; gap: 6px; padding-block: 20px; border-top: 1px solid var(--line); }
   .rows b { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.25; letter-spacing: -.005em; }
   .rows span { color: var(--mute); }
@@ -184,20 +186,20 @@
   .stage { position: relative; width: min(100%, 380px); height: 380px; margin: 0 auto; }
   .stack { display: block; width: 100%; height: 100%; }
   .pilltag { position: absolute; z-index: 2; padding: 9px 16px; border-radius: 99px; font: 600 13px/1 var(--body); letter-spacing: .01em; white-space: nowrap; pointer-events: none; }
-  .p1 { left: 12%; top: 13%; rotate: -10deg; background: var(--lav); color: var(--ink); box-shadow: 0 10px 24px rgb(201 143 240 / .4); }
-  .p2 { right: 10%; top: 8%; rotate: 8deg; background: var(--butter); color: var(--ink); box-shadow: 0 10px 24px rgb(255 198 26 / .35); }
-  .p3 { left: 1%; bottom: 14%; rotate: 6deg; background: var(--mag); color: var(--ink); box-shadow: 0 10px 24px rgb(240 64 127 / .4); }
-  .p4 { right: 0; bottom: 22%; rotate: -7deg; background: var(--mint); color: var(--ink); box-shadow: 0 10px 24px rgb(143 227 136 / .35); }
+  .p1 { left: 12%; top: 13%; rotate: -10deg; background: var(--lav); color: var(--ink); box-shadow: 0 10px 24px rgb(54 64 255 / .35); }
+  .p2 { right: 10%; top: 8%; rotate: 8deg; background: var(--butter); color: var(--ink); box-shadow: 0 10px 24px rgb(255 210 63 / .3); }
+  .p3 { left: 1%; bottom: 14%; rotate: 6deg; background: var(--mag); color: var(--ink); box-shadow: 0 10px 24px rgb(255 90 54 / .35); }
+  .p4 { right: 0; bottom: 22%; rotate: -7deg; background: var(--mint); color: var(--ink); box-shadow: 0 10px 24px rgb(0 0 0 / .25); }
   .stack-floor { position: absolute; left: 50%; bottom: 6px; translate: -50% 0; width: 220px; height: 18px; border-radius: 50%; background: rgb(0 0 0 / .45); filter: blur(12px); pointer-events: none; }
   .steps { display: grid; gap: 0 32px; list-style: none; margin: 0; padding: 0; min-width: 0; counter-reset: s; }
   .steps li { display: grid; gap: 10px; align-content: start; padding-block: 18px 32px; border-top: 1px solid var(--line); counter-increment: s; }
   .steps li::before { content: "0" counter(s); font: 500 14px/1 var(--body); color: var(--mute); }
   .steps b { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.25; letter-spacing: -.005em; }
   .steps span { color: var(--mute); }
-  #approach { margin-top: var(--gap); padding-bottom: var(--gap); background: var(--night); color: #f2eeec; }
+  #approach { margin-top: var(--gap); padding-bottom: var(--gap); background: var(--night); color: #f3f3f0; }
   #approach .steps li { border-color: rgb(255 255 255 / .14); }
   #approach .steps li:hover { border-color: var(--lav); }
-  #approach .steps span, #approach .steps li::before { color: rgb(242 238 236 / .62); }
+  #approach .steps span, #approach .steps li::before { color: rgb(243 243 240 / .64); }
 
   /* Страницы */
   .view { display: grid; gap: 22px; padding: 104px var(--gutter) 100px var(--side); }
@@ -252,20 +254,21 @@
   .loader { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; overflow: hidden; background: var(--bg); color: var(--ink); border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
   .loader.up { transform: translateY(-104%); border-radius: 0 0 50% 50% / 0 0 18vh 18vh; }
   .lblob { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); opacity: .75; animation: drift 4s ease-in-out infinite alternate; }
-  .la { left: -18vmax; top: -22vmax; background: #d9a8f2; }
-  .lb { right: -20vmax; bottom: -26vmax; background: #f6b6cf; animation-delay: -2s; }
+  .la { left: -18vmax; top: -22vmax; background: #8f95ff; }
+  .lb { right: -20vmax; bottom: -26vmax; background: #c7c9ff; animation-delay: -2s; }
   .lname { position: absolute; left: 24px; top: 22px; font: 500 14px/1 var(--body); color: var(--mute); }
   .lword { position: relative; overflow: hidden; padding-top: .1em; }
   .lword b { display: block; font: 800 clamp(72px, 13vw, 210px)/.9 var(--head); text-transform: uppercase; }
   .lword b.roll { animation: roll .45s cubic-bezier(.2, .8, .2, 1); }
   .lbar { position: absolute; left: 24px; right: 24px; bottom: 32px; height: 3px; border-radius: 3px; background: rgb(28 36 51 / .08); overflow: hidden; }
-  .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, var(--lav), var(--mag), var(--butter)); }
+  .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, var(--blue), var(--hot), var(--butter)); }
   .lnum { position: absolute; right: 24px; bottom: 50px; font: 800 clamp(44px, 6vw, 96px)/1 var(--head); font-variant-numeric: tabular-nums; }
-  .lnum small { font-size: .45em; margin-left: .08em; color: var(--lav); }
+  .lnum small { font-size: .45em; margin-left: .08em; color: var(--blue); }
   @keyframes roll { from { translate: 0 105%; } }
   @keyframes drift { to { translate: 6vmax 4vmax; scale: 1.12; } }
   .ring { position: fixed; z-index: 20; left: 0; top: 0; width: 40px; height: 40px; margin: -20px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; border-color: var(--ink); transition: width .25s, height .25s, margin .25s, background .25s; }
-  .ring.big { width: 76px; height: 76px; margin: -38px; background: rgb(201 143 240 / .35); border-color: transparent; }
+  .ring.big { width: 76px; height: 76px; margin: -38px; background: rgb(255 210 63 / .4); border-color: transparent; }
+  .over-hero .ring:not(.big) { border-color: #fff; }
 
   @media (min-width: 860px) {
     .panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
@@ -305,6 +308,10 @@
     .talk b { display: block; font-size: 17px; }
     .talk b span { padding: 0; border: 0; }
     .ava { position: relative; right: auto; top: auto; width: 36px; height: 36px; }
+    /* После первого экрана карточка связи сворачивается в круглое фото, чтобы не закрывать текст. */
+    .talk b { transition: opacity .25s; }
+    html:not(.over-hero) .talk { gap: 0; padding: 0 8px; }
+    html:not(.over-hero) .talk b { width: 0; overflow: hidden; opacity: 0; }
     .hero { padding-top: 84px; min-height: max(100svh, 760px); }
     .desk { height: calc(100% - 440px); min-height: 300px; }
     .card { margin-bottom: 42vh; }
@@ -782,6 +789,8 @@
     document.documentElement.classList.toggle("over-hero", on);
     const night = document.getElementById("approach").getBoundingClientRect();
     document.documentElement.classList.toggle("over-night", !document.getElementById("view-home").hidden && night.top < 40 && night.bottom > 40);
+    const blue = document.getElementById("contact").getBoundingClientRect();
+    document.documentElement.classList.toggle("over-blue", !document.getElementById("view-home").hidden && blue.top < 40 && blue.bottom > 40);
   }
   addEventListener("scroll", overHero, { passive: true });
   addEventListener("hashchange", overHero);
@@ -825,9 +834,9 @@
         f *= mix(.26, 1., k > 1. ? wide : tall);
         f = clamp(f, 0., 1.);
         f = clamp(f, 0., 1.);
-        vec3 deep = mix(vec3(.96, .86, .9), vec3(.95, .93, .93), uv.y);
-        vec3 col = mix(deep, vec3(.97, .67, .8), smoothstep(0., .55, f));
-        col = mix(col, vec3(.82, .6, .95), smoothstep(.5, 1., f));
+        vec3 deep = mix(vec3(.15, .2, .88), vec3(.21, .26, 1.), uv.y);
+        vec3 col = mix(deep, vec3(.56, .58, 1.), smoothstep(0., .55, f));
+        col = mix(col, vec3(.96, .74, .92), smoothstep(.5, 1., f));
         gl_FragColor = vec4(col, 1.);
       }`;
     const shader = (type, text) => {
@@ -911,14 +920,14 @@
     const air = sky.getContext("2d");
     const fade = air.createLinearGradient(0, 0, 0, 256);
     fade.addColorStop(0, "#ffffff");
-    fade.addColorStop(.45, "#f6dbe8");
-    fade.addColorStop(1, "#c98ff0");
+    fade.addColorStop(.45, "#dfe0ff");
+    fade.addColorStop(1, "#3640ff");
     air.fillStyle = fade;
     air.fillRect(0, 0, 512, 256);
     air.filter = "blur(18px)";
     air.fillStyle = "#ffffff";
     air.fillRect(70, 40, 130, 70);
-    air.fillStyle = "#ffc4e6";
+    air.fillStyle = "#ffd6cc";
     air.fillRect(330, 90, 120, 70);
     air.filter = "none";
     const skyMap = new T.CanvasTexture(sky);
@@ -936,7 +945,7 @@
     sun.shadow.bias = -.0005;
     Object.assign(sun.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: 1, far: 20 });
     scene.add(sun);
-    const rim = new T.DirectionalLight(0xff9fd8, .26);
+    const rim = new T.DirectionalLight(0x8f95ff, .34);
     rim.position.set(5, 2, -3);
     scene.add(rim);
 
@@ -989,14 +998,14 @@
     lineMap.wrapS = lineMap.wrapT = T.RepeatWrapping;
     lineMap.repeat.set(1, 1 / .26);
     lineMap.anisotropy = 8;
-    const table = soft(0xffffff, .5, .2);
+    const table = soft(0xf6f6ff, .5, .2);
     table.map = lineMap;
     const stand = rbox(6, 5, 3.7, .3, table);
     stand.position.y = -2.5;
     rig.add(stand);
 
     // Ноутбук.
-    const shell = soft(0xc9c5d1, .3, .55);
+    const shell = soft(0xd6d8e3, .28, .6);
     const laptop = new T.Group();
     laptop.position.set(0, 0, .05);
     rig.add(laptop);
@@ -1004,25 +1013,25 @@
     const base = rbox(3.4, .2, 2.3, .17, shell);
     base.position.y = .14;
     laptop.add(base);
-    const well = rbox(3.08, .03, 1.16, .09, soft(0x2a2430, .5, .15));
+    const well = rbox(3.08, .03, 1.16, .09, soft(0x1c1d33, .5, .15));
     well.position.set(0, .236, -.42);
     laptop.add(well);
     const pad = rbox(1.1, .02, .62, .09, soft(0xeceaf0, .3));
     pad.position.set(0, .24, .64);
     laptop.add(pad);
-    part(new T.CylinderGeometry(.035, .035, .012, 20), soft(0x8fe388), laptop, 1.5, .245, .98);
+    part(new T.CylinderGeometry(.035, .035, .012, 20), soft(0xffd23f), laptop, 1.5, .245, .98);
 
     const COLS = 13, ROWS = 5, STEP = .226;
     const keys = new T.InstancedMesh(roundGeometry(.2, .06, .2, .05, 1, 2), soft(0xffffff, .38, .4), COLS * ROWS);
     keys.castShadow = true;
     const dips = new Float32Array(COLS * ROWS);
     const spot = [];
-    const tints = { 0: 0xf0407f, 12: 0x8fe388, 26: 0xffc61a, 38: 0xffadc8, 64: 0xc98ff0 };
+    const tints = { 0: 0xff5a36, 12: 0x3640ff, 26: 0xffd23f, 38: 0xc7c9ff, 64: 0x3640ff };
     const tint = new T.Color();
     for (let row = 0; row < ROWS; row++) for (let col = 0; col < COLS; col++) {
       const i = spot.length;
       spot.push([(col - (COLS - 1) / 2) * STEP, -.42 + (row - (ROWS - 1) / 2) * STEP]);
-      keys.setColorAt(i, tint.set(tints[i] || 0x2a2430));
+      keys.setColorAt(i, tint.set(tints[i] || 0x1c1d33));
     }
     laptop.add(keys);
     const holder = new T.Object3D();
@@ -1040,7 +1049,7 @@
     keyPlane.visible = false;
     laptop.add(keyPlane);
 
-    const hingeBar = part(new T.CylinderGeometry(.075, .075, 1.5, 24).rotateZ(Math.PI / 2), soft(0xc98ff0), laptop, 0, .25, -1.12);
+    const hingeBar = part(new T.CylinderGeometry(.075, .075, 1.5, 24).rotateZ(Math.PI / 2), deep(0x3640ff, .35, .5), laptop, 0, .25, -1.12);
     hingeBar.castShadow = false;
     const hinge = new T.Group();
     hinge.position.set(0, .25, -1.12);
@@ -1049,7 +1058,7 @@
     const lid = rbox(LID_W, .13, LID_D, .17, shell);
     lid.position.set(0, .07, LID_D / 2 + .03);
     hinge.add(lid);
-    const bezel = rbox(3.24, .02, 2.12, .13, soft(0x1b1622, .35, .6));
+    const bezel = rbox(3.24, .02, 2.12, .13, soft(0x12132b, .35, .6));
     bezel.position.set(0, .002, LID_D / 2 + .03);
     hinge.add(bezel);
 
@@ -1073,9 +1082,9 @@
     (() => {
       const w = wall.getContext("2d");
       const g = w.createLinearGradient(0, 0, 0, 640);
-      g.addColorStop(0, "#c98ff0");
-      g.addColorStop(.6, "#f6b6cf");
-      g.addColorStop(1, "#f6e6ee");
+      g.addColorStop(0, "#3640ff");
+      g.addColorStop(.6, "#8f95ff");
+      g.addColorStop(1, "#e8e9ff");
       w.fillStyle = g;
       w.fillRect(0, 0, 1024, 640);
       w.filter = "blur(10px)";
@@ -1084,9 +1093,9 @@
       w.filter = "none";
     })();
     function paint(stage, chars) {
-      const ink = "#1b1622", mid = "#b57ee8";
+      const ink = "#12132b", mid = "#3640ff";
       pen.drawImage(wall, 0, 0);
-      ["#f0407f", "#ffc61a", "#8fe388", "#c98ff0"].forEach((color, i) => {
+      ["#ff5a36", "#ffd23f", "#3640ff", "#c7c9ff"].forEach((color, i) => {
         pen.fillStyle = color;
         box(30, 34 + i * 92, 72, 72, 20);
         pen.fill();
@@ -1101,13 +1110,13 @@
       box(136, 40, 846, 556, 30);
       pen.fill();
       pen.shadowColor = "transparent";
-      ["#f0407f", "#ffc61a", "#8fe388"].forEach((color, i) => { pen.fillStyle = color; pen.beginPath(); pen.arc(170 + i * 30, 72, 10, 0, 7); pen.fill(); });
+      ["#ff5a36", "#ffd23f", "#3640ff"].forEach((color, i) => { pen.fillStyle = color; pen.beginPath(); pen.arc(170 + i * 30, 72, 10, 0, 7); pen.fill(); });
       const word = WORDS[stage].slice(0, chars).toUpperCase();
       pen.fillStyle = ink;
       pen.font = '800 112px "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif';
       pen.textBaseline = "alphabetic";
       pen.fillText(word, 170, 196);
-      pen.fillStyle = "#1b1622";
+      pen.fillStyle = "#12132b";
       pen.fillRect(176 + pen.measureText(word).width, 112, 7, 88);
       pen.lineWidth = 5;
       pen.strokeStyle = mid;
@@ -1127,7 +1136,7 @@
           pen.stroke();
           pen.beginPath(); pen.moveTo(x, y); pen.lineTo(x + w, y + h); pen.moveTo(x + w, y); pen.lineTo(x, y + h); pen.stroke();
         } else {
-          pen.fillStyle = ["#c98ff0", "#ffadc8", "#ffc61a"][i];
+          pen.fillStyle = ["#8f95ff", "#ffb3a3", "#ffd23f"][i];
           pen.fill();
         }
       });
@@ -1147,16 +1156,16 @@
     }
 
     // Вещи на столе.
-    const red = soft(0xf0182f, .3, .5);
+    const red = deep(0xff4a2a, .32, .5);
     const mug = new T.Group();
     mug.position.set(2.2, 0, .35);
     mug.rotation.y = .3;
     rig.add(mug);
     part(new T.CylinderGeometry(.33, .3, .68, 48), red, mug, 0, .34, 0);
-    part(new T.CylinderGeometry(.285, .285, .02, 40), soft(0x7a1426, .5, .2), mug, 0, .682, 0).castShadow = false;
+    part(new T.CylinderGeometry(.285, .285, .02, 40), soft(0x7a1e10, .5, .2), mug, 0, .682, 0).castShadow = false;
     part(new T.TorusGeometry(.17, .052, 18, 36), red, mug, .34, .34, 0);
     const white = soft(0xffffff, .3, .5);
-    const dark = soft(0x15172e, .25, .8);
+    const dark = soft(0x12132b, .25, .8);
     const pupils = [-.115, .115].map((x) => {
       const eye = part(new T.SphereGeometry(.098, 24, 18), white, mug, x, .42, .285);
       eye.scale.z = .55;
@@ -1173,20 +1182,20 @@
     const pages = rbox(.92, .1, 1.2, .05, soft(0xf6f3ee, .7, .05));
     pages.position.y = .05;
     note.add(pages);
-    const cover = rbox(.96, .035, 1.24, .06, deep(0xc98ff0, .35, .5));
+    const cover = rbox(.96, .035, 1.24, .06, deep(0xffd23f, .35, .5));
     cover.position.y = .118;
     note.add(cover);
-    const band = rbox(.05, .02, 1.25, .01, soft(0x1b1622, .5, .2));
+    const band = rbox(.05, .02, 1.25, .01, soft(0x12132b, .5, .2));
     band.position.set(.3, .14, 0);
     note.add(band);
     const stylus = new T.Group();
     stylus.position.set(-.08, .175, .05);
     stylus.rotation.set(0, .55, Math.PI / 2);
     note.add(stylus);
-    part(new T.CylinderGeometry(.035, .035, .92, 24), deep(0xffc61a, .3, .6), stylus, 0, 0, 0);
-    part(new T.CylinderGeometry(.036, .036, .14, 24), soft(0x1b1622, .35, .5), stylus, 0, .42, 0);
-    part(new T.ConeGeometry(.035, .1, 24), soft(0xf2eeec, .4, .3), stylus, 0, -.51, 0);
-    part(new T.CylinderGeometry(.008, .008, .3, 8), soft(0x1b1622, .35, .5), stylus, .04, .3, 0);
+    part(new T.CylinderGeometry(.035, .035, .92, 24), deep(0x3640ff, .3, .6), stylus, 0, 0, 0);
+    part(new T.CylinderGeometry(.036, .036, .14, 24), soft(0x12132b, .35, .5), stylus, 0, .42, 0);
+    part(new T.ConeGeometry(.035, .1, 24), soft(0xf3f3f0, .4, .3), stylus, 0, -.51, 0);
+    part(new T.CylinderGeometry(.008, .008, .3, 8), soft(0x12132b, .35, .5), stylus, .04, .3, 0);
 
     function fit() {
       const rect = desk.getBoundingClientRect();
@@ -1287,8 +1296,8 @@
     const wash = room.getContext("2d");
     const sky = wash.createLinearGradient(0, 0, 0, 128);
     sky.addColorStop(0, "#ffffff");
-    sky.addColorStop(.5, "#f6dbe8");
-    sky.addColorStop(1, "#c98ff0");
+    sky.addColorStop(.5, "#dfe0ff");
+    sky.addColorStop(1, "#3640ff");
     wash.fillStyle = sky;
     wash.fillRect(0, 0, 256, 128);
     const roomMap = new T.CanvasTexture(room);
@@ -1332,7 +1341,7 @@
       sheet.rotation.z = r * .3;
       folder.add(sheet);
     });
-    const backMesh = plate(back, .1, lin(new T.MeshPhysicalMaterial({ color: 0xb57ee8, roughness: .26, clearcoat: 1, clearcoatRoughness: .2, envMapIntensity: .7 })));
+    const backMesh = plate(back, .1, lin(new T.MeshPhysicalMaterial({ color: 0x3a45ff, roughness: .26, clearcoat: 1, clearcoatRoughness: .2, envMapIntensity: .7 })));
     backMesh.position.z = -.42;
     folder.add(backMesh);
     // Экраны проектов: мобильные версии Beyond Meat и Block Shop.
@@ -1370,7 +1379,7 @@
       return mesh;
     });
     // Передний карман: матовое голубое стекло.
-    const front = plate(rounded(-1.85, -1.3, 1.85, .02, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xffadc8, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .8, envMapIntensity: .9 })));
+    const front = plate(rounded(-1.85, -1.3, 1.85, .02, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xc7c9ff, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .8, envMapIntensity: .9 })));
     front.position.z = .05;
     folder.add(front);
     // Светлая кромка по краю стекла.
@@ -1391,9 +1400,9 @@
       lp.font = '600 72px "Sofia Sans", Arial, sans-serif';
       lp.textBaseline = "middle";
       lp.fillText("Мои проекты", 48, 100);
-      lp.fillStyle = "#1b1622";
+      lp.fillStyle = "#12132b";
       lp.beginPath(); lp.roundRect(770, 52, 210, 96, 48); lp.fill();
-      ["#ffc61a", "#f0407f", "#8fe388"].forEach((c, i) => { lp.fillStyle = c; lp.beginPath(); lp.arc(822 + i * 52, 100, 14, 0, 7); lp.fill(); });
+      ["#ffd23f", "#ff5a36", "#c7c9ff"].forEach((c, i) => { lp.fillStyle = c; lp.beginPath(); lp.arc(822 + i * 52, 100, 14, 0, 7); lp.fill(); });
       labelMap.needsUpdate = true;
     }
     paintLabel();
