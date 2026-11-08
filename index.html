@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Елена Литинская — Веб-дизайнер и UX/UI</title>
 <meta name="description" content="Проектирую сайты и интерфейсы, которые помогают людям разобраться в предложении, выбрать подходящее и сделать следующий шаг.">
-<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="48x48" href="img/site/icon-48.png">
+<link rel="apple-touch-icon" href="img/site/icon-180.png">
+<meta name="theme-color" content="#3640ff">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Елена Литинская — веб-дизайнер и UX/UI">
+<meta property="og:description" content="Проектирую сайты и интерфейсы, которые помогают людям разобраться в предложении, выбрать подходящее и сделать следующий шаг.">
+<meta property="og:url" content="https://ellitinskaaaya-dotcom.github.io/portfolio/">
+<meta property="og:image" content="https://ellitinskaaaya-dotcom.github.io/portfolio/img/site/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>[hidden]{display:none!important}</style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500&family=Sofia+Sans+Extra+Condensed:wght@800&display=swap">
 <style>
@@ -53,8 +64,14 @@
   .menu:hover { background: var(--lav); color: var(--ink); }
   .drawer { position: fixed; z-index: 11; left: 30px; top: 20px; bottom: 20px; width: min(46vw, 640px); display: grid; align-content: center; justify-items: center; gap: 12px; border-radius: 12px; background: var(--panel); color: #fff; transform: translateX(-112%); transition: transform .55s cubic-bezier(.7, 0, .2, 1); }
   .drawer.open { transform: none; }
-  .drawer a { font: 800 clamp(38px, 3.6vw, 56px)/1 var(--head); text-transform: uppercase; text-decoration: none; transition: color .2s; }
-  .drawer a:hover { color: var(--lav); }
+  .drawer-links { display: grid; justify-items: center; gap: 12px; }
+  .drawer-links a { font: 800 clamp(38px, 3.6vw, 56px)/1 var(--head); text-transform: uppercase; text-decoration: none; transition: color .2s; }
+  .drawer-links a:hover { color: var(--lav); }
+  .drawer-foot { position: absolute; left: 0; right: 0; bottom: 28px; display: grid; justify-items: center; gap: 16px; }
+  .drawer .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--butter); --text-on: var(--ink); }
+  .drawer-socials { display: flex; gap: 22px; }
+  .drawer-socials a { color: rgb(255 255 255 / .75); text-decoration: none; }
+  .drawer-socials a:hover { color: #fff; }
   .drawer.open ~ .menu, .menu.on { background: transparent; box-shadow: none; color: #fff; }
 
 
@@ -107,7 +124,7 @@
   .mi .splash { right: -176px; top: 0; width: 760px; clip-path: inset(0 0 24% 0); }
   .mi .lab { left: 31%; top: 34px; width: 118px; rotate: -12deg; filter: drop-shadow(0 14px 14px rgb(60 40 30 / .22)); }
   .mi .front { left: 45%; top: 62px; }
-  .mi .back { --w: 196px; right: 1%; top: 214px; }
+  .mi .back { --w: 196px; right: 1%; top: 136px; }
   .is-butter > .scene { background: #ebeae5; }
   .sf .word { left: 3.5%; right: 3.5%; top: 26px; width: 93%; }
   .sf .arch { left: 42%; top: 172px; width: 236px; height: 430px; overflow: hidden; border-radius: 118px 118px 0 0; }
@@ -143,7 +160,7 @@
   .dark { display: grid; gap: 20px; margin-top: var(--gap); margin-bottom: 0; padding: var(--gap) var(--gutter) var(--gap) var(--side); 
     background: var(--bg); }
   .about { display: grid; gap: 28px; align-items: start; }
-  .about-photo { margin: 0; width: min(100%, 260px); aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; background: radial-gradient(80% 70% at 30% 15%, #8f95ff, transparent 70%), var(--blue); }
+  .about-photo { margin: 0; width: min(100%, 260px); aspect-ratio: 4 / 5; overflow: hidden; border-radius: 16px; background: #ece9e4; }
   .about-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
   .about-text { display: grid; gap: 20px; }
   .facts { display: grid; margin-top: 12px; border-top: 1px solid var(--line); }
@@ -159,6 +176,14 @@
   .consent { position: fixed; z-index: 25; right: 18px; bottom: 18px; display: grid; gap: 14px; justify-items: start; width: min(420px, calc(100% - 36px)); padding: 20px; border-radius: 18px; background: #fff; color: var(--ink); font-size: 15px; line-height: 1.45; box-shadow: 0 20px 50px rgb(18 19 43 / .2); }
   .consent a { color: var(--blue); }
   .consent[hidden] { display: none; }
+  .vp img { cursor: zoom-in; }
+  .zoom { position: fixed; z-index: 28; inset: 0; overflow: auto; overscroll-behavior: contain; padding: 72px 16px 40px; background: rgb(18 19 43 / .94); }
+  .zoom[hidden] { display: none; }
+  .zoom img { display: block; width: min(100%, 1280px); margin: 0 auto; border-radius: 12px; cursor: zoom-out; }
+  .zoom.is-phone img { width: min(100%, 460px); }
+  @media (max-width: 859px) { .zoom:not(.is-phone) img { width: 1000px; max-width: none; margin: 0; } }
+  .zoom-close { position: fixed; z-index: 1; top: 16px; right: 16px; padding: 13px 18px; border: 0; border-radius: 10px; background: #fff; color: var(--ink); font: 500 15px var(--body); }
+  html:has(.zoom:not([hidden])) { overflow: hidden; }
   .foot a:hover { color: #fff; }
   .stat { display: grid; justify-items: center; gap: 8px; width: min(100%, 560px); padding: 40px 20px; border-radius: 14px; background: #141414; text-align: center; }
   .stat b { font: 800 clamp(90px, 13vw, 190px)/.9 var(--head); }
@@ -416,9 +441,13 @@
 <a class="logo" href="#">Елена Литинская</a>
 <a class="talk" href="https://t.me/ellitinskaya" target="_blank" rel="noopener"><b><span>Обсудить</span> <span>задачу</span></b><u class="ava" aria-hidden="true"><img src="img/site/avatar.webp" alt=""></u></a>
 <aside class="drawer" id="drawer" aria-label="Меню">
-  <a href="#projects">Проекты</a><a href="#approach">Подход</a><a href="#about">Обо мне</a><a href="#contact">Контакт</a>
+  <nav class="drawer-links"><a href="#projects">Проекты</a><a href="#approach">Подход</a><a href="#about">Обо мне</a><a href="#contact">Контакт</a></nav>
+  <div class="drawer-foot">
+    <a class="btn" href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Обсудить задачу<i aria-hidden="true"></i></a>
+    <p class="drawer-socials"><a href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Telegram</a><a href="https://www.behance.net/3525e811" target="_blank" rel="noopener">Behance</a></p>
+  </div>
 </aside>
-<button class="menu" id="menu" type="button">Меню</button>
+<button class="menu" id="menu" type="button" aria-controls="drawer" aria-expanded="false">Меню</button>
 
 <main id="view-home">
   <section class="hero" id="hero">
@@ -479,7 +508,6 @@
         <p class="lead">Я Елена. Работаю в дизайне с 2019 года — как самостоятельный дизайнер, в студии и вместе с командами брендов.</p>
         <p class="lead">Мне важно, чтобы общая идея, структура и каждая деталь складывались в цельное решение.</p>
         <ul class="facts">
-          <li><b>С 2019 года</b><span>в дизайне</span></li>
           <li><b>UX/UI, веб-дизайн, e-commerce, айдентика</b><span>направления</span></li>
           <li><b>Сама верстаю и публикую</b><span>от макета до готового сайта</span></li>
         </ul>
@@ -566,6 +594,11 @@
   </div>
 </section>
 
+<div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="Макет на весь экран" data-lenis-prevent hidden>
+  <button class="zoom-close" id="zoom-close" type="button">Закрыть</button>
+  <img id="zoom-img" alt="">
+</div>
+
 <footer class="foot">
   <span>Елена Литинская, 2026</span>
   <nav class="foot-links" aria-label="Документы"><a href="#privacy">Политика конфиденциальности</a><a href="#terms">Пользовательское соглашение</a><a href="#">Наверх</a></nav>
@@ -636,6 +669,30 @@
       [["desk", "img/cases/jr-contacts.jpg", "Контакты"]],
     ],
   };
+  // Полный макет поверх страницы: листается внутри, закрывается кнопкой, нажатием или Esc.
+  const zoom = document.getElementById("zoom");
+  const zoomImg = document.getElementById("zoom-img");
+  let zoomFrom = null;
+  function openZoom(src, caption, phone) {
+    zoomFrom = document.activeElement;
+    zoomImg.src = src;
+    zoomImg.alt = caption;
+    zoom.classList.toggle("is-phone", phone);
+    zoom.hidden = false;
+    zoom.scrollTop = 0;
+    if (typeof lenis !== "undefined" && lenis) lenis.stop();
+    document.getElementById("zoom-close").focus();
+  }
+  function closeZoom() {
+    if (zoom.hidden) return;
+    zoom.hidden = true;
+    if (typeof lenis !== "undefined" && lenis) lenis.start();
+    zoomFrom?.focus?.();
+  }
+  document.getElementById("zoom-close").addEventListener("click", closeZoom);
+  zoomImg.addEventListener("click", closeZoom);
+  addEventListener("keydown", (e) => { if (e.key === "Escape") closeZoom(); });
+  addEventListener("hashchange", closeZoom);
   function frameRow(row) {
     const box = el("div", "", `shots shots-${row.map((x) => x[0]).join("-")}`);
     row.forEach(([kind, src, caption]) => {
@@ -646,6 +703,7 @@
       img.loading = "lazy";
       img.alt = caption;
       img.src = src;
+      img.addEventListener("click", () => openZoom(img.src, caption, kind === "phone"));
       img.addEventListener("load", () => {
         const shift = vp.clientHeight - img.offsetHeight;
         if (shift < -4) {
@@ -796,7 +854,9 @@
     drawer.classList.toggle("open", open);
     menu.classList.toggle("on", open);
     menu.textContent = open ? "Закрыть" : "Меню";
+    menu.setAttribute("aria-expanded", open ? "true" : "false");
   };
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && drawer.classList.contains("open")) { toggle(false); menu.focus(); } });
   menu.addEventListener("click", () => toggle(!drawer.classList.contains("open")));
 
   // Плавная прокрутка, как на chipsa.design: страница едет с инерцией.
@@ -1642,7 +1702,7 @@
     let shown = 0;
     word.classList.add("roll");
     const timer = setInterval(() => {
-      const t = clamp((performance.now() - started) / 2200);
+      const t = clamp((performance.now() - started) / 1400);
       const p = 1 - Math.pow(1 - t, 2.2);
       count.textContent = Math.round(p * 100);
       bar.style.scale = `${p} 1`;
