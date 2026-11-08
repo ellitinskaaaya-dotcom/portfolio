@@ -12,7 +12,9 @@
   /* Сетка по образцу chipsa.design: светлый фон, контент со сдвигом от левого края,
      плавающие элементы по краям экрана, скруглённые карточки кейсов в центральной колонке. */
   :root {
-    --bg: #ffffff; --ink: #161a33; --mute: #66708a; --line: #e7e8f0; --panel: #3b4fe6; --hot: #3b4fe6; --tag: #ffd84d; --lilac: #f1edff; --peach: #fff3c2; --lime: #f1edff; --pink: #e9e4ff; --lav: #4a5cff; --butter: #ffd84d; --carrot: #ff9f1c; --berry: #3b4fe6; --mag: #ff5fc8; --mint: #2ee6a6;
+    /* Палитра по референсу Chromia: тёплый светлый фон, почти чёрный с фиолетовым, плоские яркие акценты. */
+    --bg: #f2eeec; --ink: #1b1622; --mute: #6c6470; --line: #e0d9d7; --night: #1b1622; --panel: #1b1622; --hot: #e8285a; --tag: #ffc61a; --lime: #f1e4fb; --pink: #ffd1e1; --lav: #c98ff0; --butter: #ffc61a; --mag: #f0407f; --mint: #8fe388; --orange: #ff7a2e;
+    --dots: radial-gradient(circle, rgb(27 22 34 / .13) 1px, transparent 1.5px) 0 0 / 22px 22px;
     --side: 16px; --gutter: 16px; --stick: 76px; --gap: clamp(72px, 9vw, 136px);
     --body: "Sofia Sans", "Helvetica Neue", Arial, sans-serif;
     --head: "Sofia Sans Extra Condensed", "Arial Narrow", Arial, sans-serif;
@@ -38,37 +40,38 @@
   .nav a { text-decoration: none; font-size: 16px; }
   /* Карточка связи: подпись внизу, фото и зелёная точка «в сети» в углу. */
   .talk { position: fixed; z-index: 9; right: 18px; top: 14px; width: 204px; height: 100px; padding: 14px 16px; display: flex; align-items: flex-end; justify-content: space-between; border-radius: 14px; background: #fff; color: var(--ink); text-decoration: none; box-shadow: 0 8px 28px rgb(31 43 58 / .12); transition: background .3s, translate .3s, box-shadow .3s; }
-  .talk:hover { background: var(--butter); translate: 0 -2px; box-shadow: 0 12px 32px rgb(31 43 58 / .16); }
+  .talk:hover { background: var(--lav); translate: 0 -2px; box-shadow: 0 12px 32px rgb(31 43 58 / .16); }
   .talk b { display: grid; justify-items: start; gap: 3px; font: 800 22px/1 var(--head); text-transform: uppercase; }
   .ava { position: absolute; right: 14px; top: 14px; width: 44px; height: 44px; text-decoration: none; }
   .ava img { display: block; width: 100%; height: 100%; border-radius: 50%; }
   .ava::after { content: ""; position: absolute; right: -2px; top: -1px; width: 12px; height: 12px; border-radius: 50%; background: #7ee05a; box-shadow: 0 0 0 2px #fff; }
-  .talk:hover .ava::after { box-shadow: 0 0 0 2px var(--butter); }
+  .talk:hover .ava::after { box-shadow: 0 0 0 2px var(--lav); }
   .menu { position: fixed; z-index: 12; left: 30px; top: 50%; translate: 0 -50%; padding: 13px 18px; border: 0; border-radius: 10px; background: #fffef8; box-shadow: 0 0 0 1px var(--line); color: var(--ink); font: 500 15px var(--body); cursor: pointer; transition: background .3s, color .3s; }
-  .menu:hover { background: var(--butter); color: var(--ink); }
+  .menu:hover { background: var(--lav); color: var(--ink); }
   .drawer { position: fixed; z-index: 11; left: 30px; top: 20px; bottom: 20px; width: min(46vw, 640px); display: grid; align-content: center; justify-items: center; gap: 12px; border-radius: 12px; background: var(--panel); color: #fff; transform: translateX(-112%); transition: transform .55s cubic-bezier(.7, 0, .2, 1); }
   .drawer.open { transform: none; }
   .drawer a { font: 800 clamp(38px, 3.6vw, 56px)/1 var(--head); text-transform: uppercase; text-decoration: none; transition: color .2s; }
-  .drawer a:hover { color: var(--butter); }
+  .drawer a:hover { color: var(--lav); }
   .drawer.open ~ .menu, .menu.on { background: transparent; box-shadow: none; color: #fff; }
 
 
   /* Первый экран */
-  .hero { position: relative; min-height: 100svh; padding: 112px var(--gutter) 90px var(--side); overflow: hidden; color: #fff;
-    background: radial-gradient(60% 70% at 78% 40%, #c8bdfb, transparent 70%), radial-gradient(50% 60% at 60% 95%, #8d94ff, transparent 70%), #2233dc; }
+  .hero { position: relative; min-height: 100svh; padding: 112px var(--gutter) 90px var(--side); overflow: hidden; color: var(--ink);
+    background: radial-gradient(60% 70% at 78% 60%, #f6b6cf, transparent 70%), radial-gradient(50% 60% at 60% 95%, #d9a8f2, transparent 70%), #f2eeec; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: var(--dots); }
   .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; z-index: 2; pointer-events: none; background: linear-gradient(to bottom, transparent, var(--bg) 88%); }
-  .hero .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--butter); --text-on: var(--ink); box-shadow: none; }
-  .hero .btn + .btn { --fill: rgb(255 255 255 / .14); --text: #fff; --fill-on: #fff; --text-on: var(--ink); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .6); }
-  .over-hero .logo { color: #fff; }
+  .hero .btn + .btn { --fill: rgb(255 255 255 / .7); --fill-on: #fff; box-shadow: inset 0 0 0 1px var(--ink); }
+  .over-hero .logo { color: var(--ink); }
+  .over-night .logo { color: #f2eeec; }
   .field { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
   .desk { position: absolute; right: 0; bottom: 0; width: 56%; height: 78%; z-index: 2; pointer-events: none; }
   .hero h1 { position: relative; z-index: 3; max-width: 8.2em; }
-  .role { position: relative; z-index: 3; margin-bottom: 14px; color: rgb(255 255 255 / .82); }
+  .role { position: relative; z-index: 3; margin-bottom: 14px; color: var(--mute); }
   .actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .aside { position: relative; display: grid; gap: 28px; justify-items: start; margin: 28px 0 0; width: min(100%, 440px); z-index: 3; }
   /* Кнопка: плотная заливка, небольшое скругление, стрелка из точек. На наведение заливка меняется, точки бегут волной. */
-  .btn { --fill: var(--lav); --fill-on: var(--mag); --text: #fff; --text-on: #fff; display: inline-flex; width: fit-content; align-items: center; gap: 14px; padding: 14px 16px 14px 20px; border: 0; border-radius: 10px; background: var(--fill); color: var(--text); font: 500 17px/1.1 var(--body); letter-spacing: -.005em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background .3s, color .3s; }
-  .btn + .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--pink); box-shadow: 0 0 0 1px var(--line); }
+  .btn { --fill: var(--ink); --fill-on: var(--lav); --text: #fff; --text-on: var(--ink); display: inline-flex; width: fit-content; align-items: center; gap: 14px; padding: 14px 18px 14px 22px; border: 0; border-radius: 99px; background: var(--fill); color: var(--text); font: 500 17px/1.1 var(--body); letter-spacing: -.005em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background .3s, color .3s; }
+  .btn + .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--pink); box-shadow: 0 0 0 1px var(--ink); }
   .btn:hover { background: var(--fill-on); color: var(--text-on); }
   .btn i { display: block; width: 20px; height: 20px; flex: none; }
   .btn svg { display: block; width: 100%; height: 100%; fill: currentColor; overflow: visible; }
@@ -77,7 +80,7 @@
   .works { padding: var(--gap) var(--gutter) 0 var(--side); }
   .works > .h2 { margin-bottom: 32px; }
   .cards { width: min(100%, 880px); container-type: inline-size; }
-  .card { position: sticky; top: calc(var(--stick) + var(--i, 0) * 74px); margin-bottom: 24px; transform-origin: 50% 0; display: flex; flex-direction: column; justify-content: space-between; min-height: clamp(440px, min(40vw, 66svh), 560px); transform-origin: 50% 0; padding: 22px 24px; border-radius: 14px; color: #fff; text-decoration: none; overflow: hidden; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+  .card { position: sticky; top: calc(var(--stick) + var(--i, 0) * 74px); margin-bottom: 24px; transform-origin: 50% 0; display: flex; flex-direction: column; justify-content: space-between; min-height: clamp(440px, min(40vw, 66svh), 560px); transform-origin: 50% 0; padding: 22px 24px; border-radius: 22px; color: #fff; text-decoration: none; overflow: hidden; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
   .card:hover { transform: scale(.985); }
   .card { justify-content: flex-end; gap: 10px; }
   .card > div { position: relative; z-index: 2; }
@@ -136,12 +139,12 @@
 
   .block { display: grid; gap: 28px; padding: var(--gap) var(--gutter) 0 var(--side); }
   .block > *, .dark > * { max-width: 1040px; }
-  #contact { margin-top: var(--gap); padding-top: var(--gap); padding-bottom: calc(var(--gap) + 40px); color: #fff; background: radial-gradient(60% 120% at 90% 0, #ff7ad9, transparent 60%), radial-gradient(70% 120% at 0 100%, #8f7bff, transparent 60%), #2f3fe0; }
+  #contact { margin-top: var(--gap); padding-top: var(--gap); padding-bottom: calc(var(--gap) + 40px); color: var(--ink); background: var(--dots), var(--lav); }
   .socials { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-  .socials a { display: inline-block; padding: 10px 18px; border-radius: 99px; color: #fff; text-decoration: none; font: 500 15px/1 var(--body); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .55); transition: background .25s, color .25s; }
-  .socials a:hover { background: var(--butter); color: var(--ink); box-shadow: none; }
-  #contact .btn { --fill: #fff; --text: var(--ink); --fill-on: var(--butter); --text-on: var(--ink); box-shadow: none; }
-  #contact .note { color: rgb(255 255 255 / .75); }
+  .socials a { display: inline-block; padding: 10px 18px; border-radius: 99px; color: var(--ink); text-decoration: none; font: 500 15px/1 var(--body); box-shadow: inset 0 0 0 1px var(--ink); transition: background .25s, color .25s; }
+  .socials a:hover { background: var(--ink); color: #fff; box-shadow: none; }
+  #contact .btn { --fill-on: #fff; }
+  #contact .note { color: rgb(27 22 34 / .7); }
   .rows li { display: grid; gap: 6px; padding-block: 20px; border-top: 1px solid var(--line); }
   .rows b { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.25; letter-spacing: -.005em; }
   .rows span { color: var(--mute); }
@@ -163,21 +166,25 @@
   .view > a:not(.btn):hover, .logo:hover { color: var(--hot); }
   .card-more { transition: translate .3s; }
   .card:hover .card-more { translate: 6px 0; }
-  ::selection { background: var(--butter); color: var(--ink); }
+  ::selection { background: var(--lav); color: var(--ink); }
   .flow { position: relative; }
   .stage { position: relative; width: min(100%, 380px); height: 380px; margin: 0 auto; }
   .stack { display: block; width: 100%; height: 100%; }
   .pilltag { position: absolute; z-index: 2; padding: 9px 16px; border-radius: 99px; font: 600 13px/1 var(--body); letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; pointer-events: none; }
-  .p1 { left: 12%; top: 13%; rotate: -10deg; background: var(--lav); color: #fff; box-shadow: 0 10px 24px rgb(74 92 255 / .45); }
-  .p2 { right: 10%; top: 8%; rotate: 8deg; background: var(--butter); color: var(--ink); box-shadow: 0 10px 24px rgb(255 210 63 / .45); }
-  .p3 { left: 1%; bottom: 14%; rotate: 6deg; background: var(--mag); color: #fff; box-shadow: 0 10px 24px rgb(255 95 200 / .45); }
-  .p4 { right: 0; bottom: 22%; rotate: -7deg; background: var(--mint); color: var(--ink); box-shadow: 0 10px 24px rgb(46 230 166 / .4); }
-  .stack-floor { position: absolute; left: 50%; bottom: 6px; translate: -50% 0; width: 220px; height: 18px; border-radius: 50%; background: rgb(31 43 58 / .12); filter: blur(12px); pointer-events: none; }
+  .p1 { left: 12%; top: 13%; rotate: -10deg; background: var(--lav); color: var(--ink); box-shadow: 0 10px 24px rgb(201 143 240 / .4); }
+  .p2 { right: 10%; top: 8%; rotate: 8deg; background: var(--butter); color: var(--ink); box-shadow: 0 10px 24px rgb(255 198 26 / .35); }
+  .p3 { left: 1%; bottom: 14%; rotate: 6deg; background: var(--mag); color: #fff; box-shadow: 0 10px 24px rgb(240 64 127 / .4); }
+  .p4 { right: 0; bottom: 22%; rotate: -7deg; background: var(--mint); color: var(--ink); box-shadow: 0 10px 24px rgb(143 227 136 / .35); }
+  .stack-floor { position: absolute; left: 50%; bottom: 6px; translate: -50% 0; width: 220px; height: 18px; border-radius: 50%; background: rgb(0 0 0 / .45); filter: blur(12px); pointer-events: none; }
   .steps { display: grid; gap: 0 32px; list-style: none; margin: 0; padding: 0; min-width: 0; counter-reset: s; }
   .steps li { display: grid; gap: 10px; align-content: start; padding-block: 18px 32px; border-top: 1px solid var(--line); counter-increment: s; }
   .steps li::before { content: "0" counter(s); font: 500 14px/1 var(--body); color: var(--mute); }
   .steps b { font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; line-height: 1.25; letter-spacing: -.005em; }
   .steps span { color: var(--mute); }
+  #approach { margin-top: var(--gap); padding-bottom: var(--gap); background: radial-gradient(circle, rgb(255 255 255 / .1) 1px, transparent 1.5px) 0 0 / 22px 22px, var(--night); color: #f2eeec; }
+  #approach .steps li { border-color: rgb(255 255 255 / .14); }
+  #approach .steps li:hover { border-color: var(--lav); }
+  #approach .steps span, #approach .steps li::before { color: rgb(242 238 236 / .62); }
 
   /* Страницы */
   .view { display: grid; gap: 22px; padding: 104px var(--gutter) 100px var(--side); }
@@ -229,23 +236,23 @@
   input:focus, textarea:focus, select:focus { outline: 0; border-color: var(--hot); }
 
   /* Прелоадер и курсор */
-  .loader { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; overflow: hidden; background: #fff; color: var(--ink); border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
+  .loader { position: fixed; z-index: 30; inset: 0; display: grid; place-items: center; overflow: hidden; background: var(--bg); color: var(--ink); border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
   .loader.up { transform: translateY(-104%); border-radius: 0 0 50% 50% / 0 0 18vh 18vh; }
   .lblob { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); opacity: .75; animation: drift 4s ease-in-out infinite alternate; }
-  .la { left: -18vmax; top: -22vmax; background: #c8bdfb; }
-  .lb { right: -20vmax; bottom: -26vmax; background: #8fa0ff; animation-delay: -2s; }
+  .la { left: -18vmax; top: -22vmax; background: #d9a8f2; }
+  .lb { right: -20vmax; bottom: -26vmax; background: #f6b6cf; animation-delay: -2s; }
   .lname { position: absolute; left: 24px; top: 22px; font: 500 14px/1 var(--body); color: var(--mute); }
   .lword { position: relative; overflow: hidden; padding-top: .1em; }
   .lword b { display: block; font: 800 clamp(72px, 13vw, 210px)/.9 var(--head); text-transform: uppercase; }
   .lword b.roll { animation: roll .45s cubic-bezier(.2, .8, .2, 1); }
   .lbar { position: absolute; left: 24px; right: 24px; bottom: 32px; height: 3px; border-radius: 3px; background: rgb(28 36 51 / .08); overflow: hidden; }
-  .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, var(--lav), var(--mag)); }
+  .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, var(--lav), var(--mag), var(--butter)); }
   .lnum { position: absolute; right: 24px; bottom: 50px; font: 800 clamp(44px, 6vw, 96px)/1 var(--head); font-variant-numeric: tabular-nums; }
   .lnum small { font-size: .45em; margin-left: .08em; color: var(--lav); }
   @keyframes roll { from { translate: 0 105%; } }
   @keyframes drift { to { translate: 6vmax 4vmax; scale: 1.12; } }
   .ring { position: fixed; z-index: 20; left: 0; top: 0; width: 40px; height: 40px; margin: -20px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; border-color: var(--ink); transition: width .25s, height .25s, margin .25s, background .25s; }
-  .ring.big { width: 76px; height: 76px; margin: -38px; background: rgb(74 92 255 / .22); border-color: transparent; }
+  .ring.big { width: 76px; height: 76px; margin: -38px; background: rgb(201 143 240 / .35); border-color: transparent; }
 
   @media (min-width: 860px) {
     .panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
@@ -736,6 +743,8 @@
   function overHero() {
     const on = !document.getElementById("view-home").hidden && heroBox.getBoundingClientRect().bottom > 50;
     document.documentElement.classList.toggle("over-hero", on);
+    const night = document.getElementById("approach").getBoundingClientRect();
+    document.documentElement.classList.toggle("over-night", !document.getElementById("view-home").hidden && night.top < 40 && night.bottom > 40);
   }
   addEventListener("scroll", overHero, { passive: true });
   addEventListener("hashchange", overHero);
@@ -779,9 +788,9 @@
         f *= mix(.26, 1., k > 1. ? wide : tall);
         f = clamp(f, 0., 1.);
         f = clamp(f, 0., 1.);
-        vec3 deep = mix(vec3(.13, .2, .86), vec3(.2, .3, .95), uv.y);
-        vec3 col = mix(deep, vec3(.55, .58, 1.), smoothstep(0., .55, f));
-        col = mix(col, vec3(.95, .86, 1.), smoothstep(.5, 1., f));
+        vec3 deep = mix(vec3(.96, .86, .9), vec3(.95, .93, .93), uv.y);
+        vec3 col = mix(deep, vec3(.97, .67, .8), smoothstep(0., .55, f));
+        col = mix(col, vec3(.82, .6, .95), smoothstep(.5, 1., f));
         gl_FragColor = vec4(col, 1.);
       }`;
     const shader = (type, text) => {
@@ -865,8 +874,8 @@
     const air = sky.getContext("2d");
     const fade = air.createLinearGradient(0, 0, 0, 256);
     fade.addColorStop(0, "#ffffff");
-    fade.addColorStop(.45, "#dcd8ff");
-    fade.addColorStop(1, "#7f8cf5");
+    fade.addColorStop(.45, "#f6dbe8");
+    fade.addColorStop(1, "#c98ff0");
     air.fillStyle = fade;
     air.fillRect(0, 0, 512, 256);
     air.filter = "blur(18px)";
@@ -894,6 +903,8 @@
     rim.position.set(5, 2, -3);
     scene.add(rim);
 
+    // Насыщенный вариант: цвет переводится из sRGB, как в папке.
+    const deep = (color, roughness, coat) => { const m = soft(color, roughness, coat); m.color.convertSRGBToLinear(); return m; };
     const soft = (color, roughness = .46, coat = .3) => new T.MeshPhysicalMaterial({ color, roughness, metalness: 0, clearcoat: coat, clearcoatRoughness: .45, envMapIntensity: .58 });
     const roundGeometry = (w, h, d, r, fine = 6, curve = 10) => {
       const b = Math.min(r, h / 2) * .7;
@@ -928,38 +939,38 @@
     scene.add(rig);
 
     // Стол: цельный постамент, низ растворяется в фоне (маска на холсте).
-    const stand = rbox(6, 5, 3.7, .3, soft(0xe6e2ff, .62, .1));
+    const stand = rbox(6, 5, 3.7, .3, deep(0xd94a7e, .34, .5));
     stand.position.y = -2.5;
     rig.add(stand);
 
     // Ноутбук.
-    const shell = soft(0xa9a6ff);
+    const shell = soft(0xdedbe3, .32, .5);
     const laptop = new T.Group();
     laptop.position.set(-.3, 0, .05);
     rig.add(laptop);
-    [[-1.4, -.9], [1.4, -.9], [-1.4, .95], [1.4, .95]].forEach(([x, z]) => part(new T.CylinderGeometry(.09, .1, .05, 20), soft(0x7f86f2), laptop, x, .025, z));
+    [[-1.4, -.9], [1.4, -.9], [-1.4, .95], [1.4, .95]].forEach(([x, z]) => part(new T.CylinderGeometry(.09, .1, .05, 20), soft(0x9a96a2), laptop, x, .025, z));
     const base = rbox(3.4, .2, 2.3, .17, shell);
     base.position.y = .14;
     laptop.add(base);
-    const well = rbox(3.08, .03, 1.16, .09, soft(0x6468ea, .5, .15));
+    const well = rbox(3.08, .03, 1.16, .09, soft(0x2a2430, .5, .15));
     well.position.set(0, .236, -.42);
     laptop.add(well);
-    const pad = rbox(1.1, .02, .62, .09, soft(0xe4e2ff, .3));
+    const pad = rbox(1.1, .02, .62, .09, soft(0xeceaf0, .3));
     pad.position.set(0, .24, .64);
     laptop.add(pad);
-    part(new T.CylinderGeometry(.035, .035, .012, 20), soft(0x4de3a0), laptop, 1.5, .245, .98);
+    part(new T.CylinderGeometry(.035, .035, .012, 20), soft(0x8fe388), laptop, 1.5, .245, .98);
 
     const COLS = 13, ROWS = 5, STEP = .226;
     const keys = new T.InstancedMesh(roundGeometry(.2, .06, .2, .05, 1, 2), soft(0xffffff, .38, .4), COLS * ROWS);
     keys.castShadow = true;
     const dips = new Float32Array(COLS * ROWS);
     const spot = [];
-    const tints = { 0: 0xff5a7a, 12: 0x4de3a0, 26: 0xffd84d, 38: 0xff8fd0, 64: 0x5b6cff };
+    const tints = { 0: 0xf0407f, 12: 0x8fe388, 26: 0xffc61a, 38: 0xffadc8, 64: 0xc98ff0 };
     const tint = new T.Color();
     for (let row = 0; row < ROWS; row++) for (let col = 0; col < COLS; col++) {
       const i = spot.length;
       spot.push([(col - (COLS - 1) / 2) * STEP, -.42 + (row - (ROWS - 1) / 2) * STEP]);
-      keys.setColorAt(i, tint.set(tints[i] || 0xf6f4ff));
+      keys.setColorAt(i, tint.set(tints[i] || 0x2a2430));
     }
     laptop.add(keys);
     const holder = new T.Object3D();
@@ -977,7 +988,7 @@
     keyPlane.visible = false;
     laptop.add(keyPlane);
 
-    const hingeBar = part(new T.CylinderGeometry(.075, .075, 1.5, 24).rotateZ(Math.PI / 2), soft(0xff8fd0), laptop, 0, .25, -1.12);
+    const hingeBar = part(new T.CylinderGeometry(.075, .075, 1.5, 24).rotateZ(Math.PI / 2), soft(0xc98ff0), laptop, 0, .25, -1.12);
     hingeBar.castShadow = false;
     const hinge = new T.Group();
     hinge.position.set(0, .25, -1.12);
@@ -986,7 +997,7 @@
     const lid = rbox(LID_W, .13, LID_D, .17, shell);
     lid.position.set(0, .07, LID_D / 2 + .03);
     hinge.add(lid);
-    const bezel = rbox(3.24, .02, 2.12, .13, soft(0x262a52, .35, .6));
+    const bezel = rbox(3.24, .02, 2.12, .13, soft(0x1b1622, .35, .6));
     bezel.position.set(0, .002, LID_D / 2 + .03);
     hinge.add(bezel);
 
@@ -1010,9 +1021,9 @@
     (() => {
       const w = wall.getContext("2d");
       const g = w.createLinearGradient(0, 0, 0, 640);
-      g.addColorStop(0, "#4f7dff");
-      g.addColorStop(.6, "#9fc2ff");
-      g.addColorStop(1, "#e9dcff");
+      g.addColorStop(0, "#c98ff0");
+      g.addColorStop(.6, "#f6b6cf");
+      g.addColorStop(1, "#f6e6ee");
       w.fillStyle = g;
       w.fillRect(0, 0, 1024, 640);
       w.filter = "blur(10px)";
@@ -1021,9 +1032,9 @@
       w.filter = "none";
     })();
     function paint(stage, chars) {
-      const ink = "#1e2148", mid = "#8d90f3";
+      const ink = "#1b1622", mid = "#b57ee8";
       pen.drawImage(wall, 0, 0);
-      ["#ff5a7a", "#ffd84d", "#4de3a0", "#ff8fd0"].forEach((color, i) => {
+      ["#f0407f", "#ffc61a", "#8fe388", "#c98ff0"].forEach((color, i) => {
         pen.fillStyle = color;
         box(30, 34 + i * 92, 72, 72, 20);
         pen.fill();
@@ -1034,17 +1045,17 @@
       pen.shadowColor = "rgba(40,50,140,.35)";
       pen.shadowBlur = 34;
       pen.shadowOffsetY = 12;
-      pen.fillStyle = "#fbfaff";
+      pen.fillStyle = "#f7f4f3";
       box(136, 40, 846, 556, 30);
       pen.fill();
       pen.shadowColor = "transparent";
-      ["#ff5a7a", "#ffd84d", "#4de3a0"].forEach((color, i) => { pen.fillStyle = color; pen.beginPath(); pen.arc(170 + i * 30, 72, 10, 0, 7); pen.fill(); });
+      ["#f0407f", "#ffc61a", "#8fe388"].forEach((color, i) => { pen.fillStyle = color; pen.beginPath(); pen.arc(170 + i * 30, 72, 10, 0, 7); pen.fill(); });
       const word = WORDS[stage].slice(0, chars).toUpperCase();
       pen.fillStyle = ink;
       pen.font = '800 112px "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif';
       pen.textBaseline = "alphabetic";
       pen.fillText(word, 170, 196);
-      pen.fillStyle = "#5b6cff";
+      pen.fillStyle = "#1b1622";
       pen.fillRect(176 + pen.measureText(word).width, 112, 7, 88);
       pen.lineWidth = 5;
       pen.strokeStyle = mid;
@@ -1064,7 +1075,7 @@
           pen.stroke();
           pen.beginPath(); pen.moveTo(x, y); pen.lineTo(x + w, y + h); pen.moveTo(x + w, y); pen.lineTo(x, y + h); pen.stroke();
         } else {
-          pen.fillStyle = ["#5b6cff", "#ff8fd0", "#ffd84d"][i];
+          pen.fillStyle = ["#c98ff0", "#ffadc8", "#ffc61a"][i];
           pen.fill();
         }
       });
@@ -1085,7 +1096,7 @@
 
     const arrowShape = new T.Shape();
     [[0, 0], [0, -.2], [.05, -.15], [.09, -.23], [.125, -.21], [.085, -.135], [.15, -.135]].forEach(([x, y], i) => (i ? arrowShape.lineTo(x, y) : arrowShape.moveTo(x, y)));
-    const pointer = new T.Mesh(new T.ShapeGeometry(arrowShape).rotateX(Math.PI / 2), new T.MeshBasicMaterial({ color: 0x1e2148, side: T.DoubleSide }));
+    const pointer = new T.Mesh(new T.ShapeGeometry(arrowShape).rotateX(Math.PI / 2), new T.MeshBasicMaterial({ color: 0x1b1622, side: T.DoubleSide }));
     hinge.add(pointer);
 
     const sticker = rbox(.56, .014, .56, .03, soft(0xffc61a, .6, .1));
@@ -1111,9 +1122,16 @@
     });
     const look = (x, y) => pupils.forEach((pupil, i) => { pupil.position.x = (i ? .115 : -.115) + x * .05; pupil.position.y = .42 + y * .05; });
 
-    part(new T.SphereGeometry(.24, 40, 30), soft(0x12c97a, .3, .5), rig, -2.42, .24, .85);
-    const ring = part(new T.TorusGeometry(.17, .075, 20, 40).rotateX(Math.PI / 2), soft(0xff5fb8, .34, .4), rig, 2.05, .08, 1.25);
-    ring.receiveShadow = true;
+    part(new T.SphereGeometry(.24, 40, 30), deep(0x6fd96a, .28, .6), rig, -2.42, .24, .85);
+    // Как у Chromia: глянцевая жёлтая «таблетка» со стрелкой и сиреневая колонна позади.
+    const puck = part(new T.CylinderGeometry(.36, .36, .3, 48), deep(0xffc61a, .3, .6), rig, 1.25, .15, 1.38);
+    puck.receiveShadow = true;
+    const arrow = new T.Shape();
+    [[-.2, -.035], [.08, -.035], [.08, -.1], [.2, 0], [.08, .1], [.08, .035], [-.2, .035]].forEach(([x, y], i) => (i ? arrow.lineTo(x, y) : arrow.moveTo(x, y)));
+    const arrowMesh = part(new T.ExtrudeGeometry(arrow, { depth: .03, bevelEnabled: false }).rotateX(-Math.PI / 2), soft(0x1b1622, .4, .3), rig, 1.25, .3, 1.38);
+    arrowMesh.rotation.y = .7;
+    part(new T.CylinderGeometry(.42, .42, 1.7, 48), deep(0xc28cf0, .3, .6), rig, -2.45, .85, -1.25);
+    
 
     function fit() {
       const rect = desk.getBoundingClientRect();
@@ -1217,8 +1235,8 @@
     const wash = room.getContext("2d");
     const sky = wash.createLinearGradient(0, 0, 0, 128);
     sky.addColorStop(0, "#ffffff");
-    sky.addColorStop(.5, "#efeaff");
-    sky.addColorStop(1, "#8f9bff");
+    sky.addColorStop(.5, "#f6dbe8");
+    sky.addColorStop(1, "#c98ff0");
     wash.fillStyle = sky;
     wash.fillRect(0, 0, 256, 128);
     const roomMap = new T.CanvasTexture(room);
@@ -1262,7 +1280,7 @@
       sheet.rotation.z = r * .3;
       folder.add(sheet);
     });
-    const backMesh = plate(back, .1, lin(new T.MeshPhysicalMaterial({ color: 0x5a6cff, roughness: .26, clearcoat: 1, clearcoatRoughness: .2, envMapIntensity: .7 })));
+    const backMesh = plate(back, .1, lin(new T.MeshPhysicalMaterial({ color: 0xb57ee8, roughness: .26, clearcoat: 1, clearcoatRoughness: .2, envMapIntensity: .7 })));
     backMesh.position.z = -.42;
     folder.add(backMesh);
     // Экраны проектов: мобильные версии Beyond Meat и Block Shop.
@@ -1300,7 +1318,7 @@
       return mesh;
     });
     // Передний карман: матовое голубое стекло.
-    const front = plate(rounded(-1.85, -1.3, 1.85, .02, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xc4b5ff, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .8, envMapIntensity: .9 })));
+    const front = plate(rounded(-1.85, -1.3, 1.85, .02, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xffadc8, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .8, envMapIntensity: .9 })));
     front.position.z = .05;
     folder.add(front);
     // Светлая кромка по краю стекла.
@@ -1321,9 +1339,9 @@
       lp.font = '600 72px "Sofia Sans", Arial, sans-serif';
       lp.textBaseline = "middle";
       lp.fillText("Мои проекты", 48, 100);
-      lp.fillStyle = "#161a33";
+      lp.fillStyle = "#1b1622";
       lp.beginPath(); lp.roundRect(770, 52, 210, 96, 48); lp.fill();
-      ["#ffd84d", "#ff5fc8", "#2ee6a6"].forEach((c, i) => { lp.fillStyle = c; lp.beginPath(); lp.arc(822 + i * 52, 100, 14, 0, 7); lp.fill(); });
+      ["#ffc61a", "#f0407f", "#8fe388"].forEach((c, i) => { lp.fillStyle = c; lp.beginPath(); lp.arc(822 + i * 52, 100, 14, 0, 7); lp.fill(); });
       labelMap.needsUpdate = true;
     }
     paintLabel();
