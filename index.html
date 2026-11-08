@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Елена Литинская — Веб-дизайнер и UX/UI</title>
+<meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Проектирую сайты и интерфейсы, которые помогают людям разобраться в предложении, выбрать подходящее и сделать следующий шаг.">
 <link rel="icon" type="image/png" sizes="48x48" href="img/site/icon-48.png">
 <link rel="apple-touch-icon" href="img/site/icon-180.png">
@@ -261,8 +262,7 @@
   .vp { position: relative; overflow: hidden; }
   .win .vp { max-height: min(72vh, 680px); }
   .vp img { display: block; width: 100%; }
-  .vp.long img { animation: pagescroll var(--dur) ease-in-out 1.2s infinite alternate; }
-  .vp.long:hover img { animation-play-state: paused; }
+  .vp.long.play img { animation: pagescroll var(--dur) ease-in-out .6s infinite alternate; }
   .phone-shot { justify-items: center; }
   .phone-shot .phone { --w: 250px; position: relative; }
   .phone-shot .vp { aspect-ratio: 9 / 19.5; border-radius: calc(var(--w) * .158); }
@@ -277,7 +277,7 @@
     /* Цветная шапка кейса выходит за сетку на свой отступ, чтобы текст в ней стоял на общей левой линии. */
     .case-hero { --pad: clamp(22px, 4vw, 56px); margin-inline: calc(-1 * var(--pad)); max-width: calc(var(--wrap) + 2 * var(--pad)); }
   }
-  @media (prefers-reduced-motion: reduce) { .vp.long { overflow: auto; } .vp.long img { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .vp.long { overflow: auto; } .vp.long.play img { animation: none; } }
   .beat { display: grid; gap: 6px; }
   .label { color: var(--mute); }
   .roles { display: grid; gap: 4px; }
@@ -310,20 +310,21 @@
   input:focus, textarea:focus, select:focus { outline: 0; border-color: var(--hot); }
 
   /* Прелоадер и курсор */
-  .loader { position: fixed; z-index: 30; inset: 0 0 auto; height: 100vh; height: 100lvh; display: grid; place-items: center; overflow: hidden; background: var(--bg); color: var(--ink); border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
-  .loader { box-shadow: 0 50vh 0 0 var(--bg); }
+  .loader { position: fixed; z-index: 30; inset: 0 0 auto; height: 100vh; height: 100lvh; display: grid; place-items: center; overflow: hidden; background: #2f3be6; color: #fff; border-radius: 0 0 0 0; transition: transform 1s cubic-bezier(.76, 0, .24, 1), border-radius 1s cubic-bezier(.76, 0, .24, 1); }
+  .loader { box-shadow: 0 50vh 0 0 #2f3be6; }
   .loader.up { box-shadow: none; transform: translateY(-104%); border-radius: 0 0 50% 50% / 0 0 18vh 18vh; }
   .lblob { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); opacity: .75; animation: drift 4s ease-in-out infinite alternate; }
   .la { left: -18vmax; top: -22vmax; background: #8f95ff; }
-  .lb { right: -20vmax; bottom: -26vmax; background: #c7c9ff; animation-delay: -2s; }
-  .lname { position: absolute; left: 24px; top: 22px; font: 500 14px/1 var(--body); color: var(--mute); }
+  .loader::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle, rgb(255 255 255 / .16) 1px, transparent 1.5px) 0 0 / 22px 22px; pointer-events: none; }
+  .lb { right: -20vmax; bottom: -26vmax; background: #f0b8e6; animation-delay: -2s; }
+  .lname { position: absolute; left: 24px; top: 22px; font: 500 14px/1 var(--body); color: rgb(255 255 255 / .78); }
   .lword { position: relative; overflow: hidden; padding-top: .1em; }
   .lword b { display: block; font: 800 clamp(72px, 13vw, 210px)/.9 var(--head); text-transform: uppercase; }
   .lword b.roll { animation: roll .45s cubic-bezier(.2, .8, .2, 1); }
-  .lbar { position: absolute; left: 24px; right: 24px; bottom: calc(32px + 100lvh - 100svh); height: 3px; border-radius: 3px; background: rgb(28 36 51 / .08); overflow: hidden; }
-  .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, var(--blue), var(--hot), var(--butter)); }
+  .lbar { position: absolute; left: 24px; right: 24px; bottom: calc(32px + 100lvh - 100svh); height: 3px; border-radius: 3px; background: rgb(255 255 255 / .22); overflow: hidden; }
+  .lbar i { position: absolute; inset: 0; transform-origin: 0 50%; scale: 0 1; border-radius: 3px; background: linear-gradient(to right, #fff, var(--butter)); }
   .lnum { position: absolute; right: 24px; bottom: calc(50px + 100lvh - 100svh); font: 800 clamp(44px, 6vw, 96px)/1 var(--head); font-variant-numeric: tabular-nums; }
-  .lnum small { font-size: .45em; margin-left: .08em; color: var(--blue); }
+  .lnum small { font-size: .45em; margin-left: .08em; color: var(--butter); }
   @keyframes roll { from { translate: 0 105%; } }
   @keyframes drift { to { translate: 6vmax 4vmax; scale: 1.12; } }
 
@@ -700,6 +701,10 @@
   zoomImg.addEventListener("click", closeZoom);
   addEventListener("keydown", (e) => { if (e.key === "Escape") closeZoom(); });
   addEventListener("hashchange", closeZoom);
+  // Длинный макет начинает ехать сверху, когда окно появляется на экране, и останавливается вне экрана.
+  const playWhenSeen = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => entry.target.classList.toggle("play", entry.isIntersecting));
+  }, { threshold: .25 });
   function frameRow(row) {
     const box = el("div", "", `shots shots-${row.map((x) => x[0]).join("-")}`);
     row.forEach(([kind, src, caption]) => {
@@ -715,8 +720,9 @@
         const shift = vp.clientHeight - img.offsetHeight;
         if (shift < -4) {
           img.style.setProperty("--shift", `${shift}px`);
-          img.style.setProperty("--dur", `${Math.max(6, -shift / 90)}s`);
+          img.style.setProperty("--dur", `${Math.max(5, -shift / 160)}s`);
           vp.classList.add("long");
+          playWhenSeen.observe(vp);
         }
       });
       vp.append(img);
