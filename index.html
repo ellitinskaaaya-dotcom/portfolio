@@ -27,6 +27,7 @@
   h1, h2, h3, p, ul, ol, figure, dl, dd { margin: 0; padding: 0; }
   ul, ol { list-style: none; }
   a { color: inherit; }
+  button { cursor: pointer; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--hot); outline-offset: 3px; }
 
   /* Иерархия: крупный заголовок, заголовок раздела, текст, подпись. */
@@ -295,9 +296,6 @@
   .lnum small { font-size: .45em; margin-left: .08em; color: var(--blue); }
   @keyframes roll { from { translate: 0 105%; } }
   @keyframes drift { to { translate: 6vmax 4vmax; scale: 1.12; } }
-  .ring { position: fixed; z-index: 20; left: 0; top: 0; width: 40px; height: 40px; margin: -20px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; border-color: var(--ink); transition: width .25s, height .25s, margin .25s, background .25s; }
-  .ring.big { width: 76px; height: 76px; margin: -38px; background: rgb(255 210 63 / .4); border-color: transparent; }
-  .over-hero .ring:not(.big) { border-color: #fff; }
 
   @media (min-width: 860px) {
     .panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
@@ -1670,24 +1668,4 @@
     try { localStorage.setItem("consent", "1"); } catch (error) {}
   });
 
-  // Кольцо-курсор догоняет мышь и растёт над ссылками.
-  if (!still && matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    const ring = el("div", "", "ring");
-    document.body.append(ring);
-    let cx = innerWidth / 2;
-    let cy = innerHeight / 2;
-    let rx = cx;
-    let ry = cy;
-    addEventListener("pointermove", (e) => {
-      cx = e.clientX;
-      cy = e.clientY;
-      ring.classList.toggle("big", !!e.target.closest("a, button"));
-    });
-    (function follow() {
-      rx += (cx - rx) * .16;
-      ry += (cy - ry) * .16;
-      ring.style.transform = `translate(${rx}px, ${ry}px)`;
-      requestAnimationFrame(follow);
-    })();
-  }
 </script>
