@@ -346,6 +346,7 @@
     .hero { padding-top: 84px; min-height: max(100svh, 760px); }
     .desk { height: calc(100% - 440px); min-height: 300px; }
     .card { margin-bottom: 42vh; }
+    @media (min-width: 640px) { .card { margin-bottom: 22vh; } }
     .card:last-child { margin-bottom: 24px; }
     .foot { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
     .consent { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); width: auto; z-index: 26; }
@@ -369,6 +370,7 @@
   .rise.shown { opacity: 1; translate: 0 0; }
   @container (min-width: 640px) and (max-width: 840px) {
     .card > .scene { zoom: .8; }
+    .mi .back { --w: 176px; top: 150px; }
     .card--scene { min-height: 470px; }
   }
   @container (max-width: 639px) {
@@ -1413,7 +1415,7 @@
     const T = THREE;
     const holder = document.getElementById("stack");
     const renderer = new T.WebGLRenderer({ canvas: holder, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, SMALL ? 1.25 : 1.5));
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
     renderer.outputEncoding = T.sRGBEncoding;
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(26, 1, .1, 40);
@@ -1484,21 +1486,21 @@
         const cardGeo = new T.PlaneGeometry(1.02, 1.92);
     const cards = FOLDER_SCREENS.map((src, i) => {
       const paper = document.createElement("canvas");
-      paper.width = 430;
-      paper.height = 810;
+      paper.width = 640;
+      paper.height = 1206;
       const map = new T.CanvasTexture(paper);
       map.encoding = T.sRGBEncoding;
-      map.anisotropy = 8;
+      map.anisotropy = renderer.capabilities.getMaxAnisotropy();
       const image = new Image();
       image.onload = () => {
         const pen = paper.getContext("2d");
         pen.save();
-        pen.beginPath(); pen.roundRect(0, 0, 430, 810, 46); pen.clip();
-        const k = Math.max(430 / image.width, 810 / image.height);
-        pen.drawImage(image, (430 - image.width * k) / 2, 0, image.width * k, image.height * k);
+        pen.beginPath(); pen.roundRect(0, 0, 640, 1206, 68); pen.clip();
+        const k = Math.max(640 / image.width, 1206 / image.height);
+        pen.drawImage(image, (640 - image.width * k) / 2, 0, image.width * k, image.height * k);
         pen.restore();
-        pen.lineWidth = 8; pen.strokeStyle = "#ffffff";
-        pen.beginPath(); pen.roundRect(4, 4, 422, 802, 42); pen.stroke();
+        pen.lineWidth = 12; pen.strokeStyle = "#ffffff";
+        pen.beginPath(); pen.roundRect(6, 6, 628, 1194, 62); pen.stroke();
         map.needsUpdate = true;
         if (still) draw(0);
       };
@@ -1508,6 +1510,11 @@
       folder.add(mesh);
       return mesh;
     });
+    // Невидимая плоскость: по ней считается, над каким экраном курсор.
+    const pad = new T.Mesh(new T.PlaneGeometry(4.4, 4.2), new T.MeshBasicMaterial());
+    pad.visible = false;
+    pad.position.set(0, .3, 0);
+    folder.add(pad);
     // Передний карман: матовое голубое стекло.
     const front = plate(rounded(-1.85, -1.3, 1.85, -.5, .26), .1, lin(new T.MeshPhysicalMaterial({ color: 0xc7c9ff, roughness: .18, clearcoat: 1, clearcoatRoughness: .08, transparent: true, opacity: .86, envMapIntensity: .9 })));
     front.position.z = .05;
@@ -1552,10 +1559,19 @@
     addEventListener("resize", fit);
     let active = -1, rise = .5, mx = 0, my = 0, yaw = 0, tilt = 0, seen = false;
     const lifts = [0, 0, 0, 0];
-    document.querySelectorAll(".steps li").forEach((item, i) => {
-      item.addEventListener("pointerenter", () => { active = i; });
-      item.addEventListener("pointerleave", () => { active = -1; });
-    });
+    // Эффект дока: экран под курсором растёт и поднимается, соседние — чуть меньше.
+    const ray = new T.Raycaster();
+    const aim = new T.Vector2();
+    let hover = false, leaveTimer = 0;
+    const point = (e) => {
+      const box = holder.getBoundingClientRect();
+      aim.set((e.clientX - box.left) / box.width * 2 - 1, 1 - (e.clientY - box.top) / box.height * 2);
+      hover = true;
+      clearTimeout(leaveTimer);
+    };
+    holder.addEventListener("pointermove", point);
+    holder.addEventListener("pointerdown", point);
+    holder.addEventListener("pointerleave", (e) => { leaveTimer = setTimeout(() => { hover = false; }, e.pointerType === "mouse" ? 0 : 1600); });
     addEventListener("pointermove", (e) => {
       mx = e.clientX / innerWidth - .5;
       my = e.clientY / innerHeight - .5;
@@ -1569,12 +1585,21 @@
       folder.rotation.y = yaw;
       folder.rotation.x = tilt;
       folder.position.y = Math.sin(now / 1700) * .015;
+      let reach = 99;
+      if (hover) {
+        ray.setFromCamera(aim, camera);
+        const hit = ray.intersectObject(pad)[0];
+        if (hit) reach = folder.worldToLocal(hit.point.clone()).x;
+      }
       cards.forEach((mesh, i) => {
         const d = mesh.userData;
-        lifts[i] += ((i === active ? 1 : 0) - lifts[i]) * .14;
-        const up = rise * (.62 - Math.abs(1.5 - i) * .14) + lifts[i] * .5;
-        mesh.position.set(d.x * (.86 + rise * .14), -.32 + up + Math.sin(now / 1300 + i * 1.7) * .012, d.z + lifts[i] * .25);
-        mesh.rotation.z = d.r * (.6 + rise) - lifts[i] * d.r * .5;
+        const gap = reach - d.x;
+        lifts[i] += (Math.exp(-gap * gap / .3) - lifts[i]) * .16;
+        const k = lifts[i];
+        const up = rise * (.62 - Math.abs(1.5 - i) * .14) + k * .7;
+        mesh.position.set(d.x * (.86 + rise * .14), -.32 + up + Math.sin(now / 1300 + i * 1.7) * .012, d.z + k * .45);
+        mesh.scale.setScalar(1 + k * .55);
+        mesh.rotation.z = d.r * (.6 + rise) * (1 - k);
       });
       renderer.render(scene, camera);
     }
