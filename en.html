@@ -18,7 +18,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <script>try{history.scrollRestoration="manual"}catch(e){}document.documentElement.className+=" js lock"</script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wdth,wght@62.5,300;62.5,400&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Общее для первых экранов по трём референсам. Только серые тона, без фото. */
 :root{
@@ -876,6 +876,20 @@ html[data-tn="g"] .badge i .hw{color:#0f1419}
 
 /* компьютер: подсказка «( наведите на цветок )» тоже под панелью — в полосе между низом панели и краем экрана (Елена, 2026-11-14) */
 @media (min-width:801px){.cv-hn{top:auto;bottom:calc(var(--m) / 2 - 7px);left:var(--m)}}
+
+/* подвал: сведения об исполнителе (самозанятая) — мелко, как сноска (2026-11-14) */
+.ft-req a{text-decoration:underline;text-underline-offset:2px}
+
+/* загрузка закрывает весь экран телефона, и место под панелью браузера, когда она прячется (Елена, 2026-11-14: «загрузка не полностью перекрывает низ на мобилке»).
+   Высота — «большой» экран (100lvh); всё, что прижато к низу, поднято на высоту панели (100lvh − 100svh), чтобы оставаться на виду */
+.ld{bottom:auto;height:100vh;height:100lvh;--lb:0px}
+@supports (height:100lvh){.ld{--lb:calc(100lvh - 100svh)}}
+.ld .k3,.ld .k4{bottom:calc(18px + var(--lb))}
+.ld .ct{bottom:calc(60px + var(--lb))}
+.ld .st{bottom:calc(24px + var(--lb))}
+.ld .steps{bottom:calc(58px + var(--lb))}
+/* подсказка под цветком: полупрозрачная, но с контрастом 4,5:1 (проверка axe, 2026-11-14) — было .42 (2,65:1) */
+.cv-hn{opacity:.64}
 </style>
 <style>/* чистовик */.ctl,.tp,.gp,.gov,.cvp,.vbar-w,.gtag,.gh{display:none!important}.zg{outline:0!important}</style>
 <link rel="alternate" hreflang="ru" href="./">
@@ -1073,7 +1087,9 @@ html[data-tn="g"] .badge i .hw{color:#0f1419}
     <ul class="gi ft-c" style="--c:6;--s:3;--sm:1"><li><a href="https://t.me/ellitinskaya" target="_blank" rel="noopener">Telegram</a></li><li><a href="https://wa.me/37494703732" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="https://max.ru/u/f9LHodD0cOJWLqr2xZhZfl6R-X-cL6GPCzhyxhStIZWbm8MumXaImJtiATc" target="_blank" rel="noopener">MAX</a></li><li><a href="https://www.instagram.com/litinskaaya/" target="_blank" rel="noopener">Instagram*</a></li></ul>
     <ul class="gi ft-c" style="--c:10;--s:3;--sm:1"><li><a href="#raboty">Work</a></li><li><a href="#uslugi">Services</a></li><li><a href="#process">How it works</a></li><li><a href="#voprosy">FAQ</a></li></ul>
     <span class="gi" style="--c:1;--s:5;--sm:1">© 2026</span>
+    <span class="gi ft-pol" style="--c:6;--s:3;--sm:2"><a href="privacy.html">Privacy policy</a></span>
     <span class="gi" style="--c:10;--s:3;--sm:1"><a href="./" hreflang="ru" lang="ru">RU</a> / EN</span>
+    <p class="gi nt ft-req" style="--c:1;--s:5;--sm:2">Elena Yurievna Litinskaya — self-employed in Russia (professional income tax payer). Taxpayer ID (INN) 2237100753051. Based in Yerevan, working remotely. I reply on weekdays, 10:00–19:00 Moscow time. Claims and legal notices: <a href="mailto:el.litinskaaaya@gmail.com">el.litinskaaaya@gmail.com</a>; postal address on request. Information on this site is not a public offer.</p>
     <p class="gi nt" style="--c:6;--s:7;--sm:2">* Instagram is owned by Meta, which is designated an extremist organisation and banned in Russia.</p>
   </div>
 </footer>
@@ -1457,7 +1473,7 @@ const RAB={
       ['Design logic',['Photos of the rooms come first. Descriptions, specs and prices help match the impression with the needs of a particular shoot.','Booking, the schedule and rental rules help choose a time and prepare for the visit, so getting to know the space leads straight to the next step.','The visual style supports the studio’s atmosphere and ties the pages together.']],
       ['Outcome',['A website that presents the rooms and leads to booking. The studio team can update the content, schedule and rental terms on Tilda themselves.']]],
     g:[['bw','sf-main.webp','Home','w'],['bw','sf-halls.webp','Rooms'],['ph',['sf-mob.webp'],'Mobile version'],['bw','sf-loyal.webp','Loyalty programme'],['bw','sf-contacts.webp','Contacts'],['bw','e-sf-404.jpg','404 page','w']]},
-  journalier:{t:'JOURNALIER',cv:'jr-ustrojstva.webp',d:'Structure, navigation and responsive design for a sports gear online store.',tags:['E-commerce','UX/UI','2025'],st:'#c4582b',fg:'#f7f3ee',hero:['e-jr-main-1.jpg','t-jr-1.jpg'],
+  journalier:{t:'JOURNALIER',cv:'jr-ustrojstva.webp',d:'Structure, navigation and responsive design for a sports gear online store.',tags:['Online store','UX/UI','2025'],st:'#c4582b',fg:'#f7f3ee',hero:['e-jr-main-1.jpg','t-jr-1.jpg'],
     head:'Combine a sports brand’s character with clear navigation',role:'My role: structure, UX/UI design and responsive layouts for the store.',
     parts:[['Task',['Develop a convenient structure and navigation for a sports gear store, with an expressive design that fits the niche and helps people explore the range.']],
       ['My contribution',['I designed the key pages and their mobile versions, connecting the product presentation, brand information, loyalty programme and contacts.']],
