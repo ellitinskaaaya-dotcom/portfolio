@@ -89,6 +89,8 @@ a:focus-visible,.badge:focus-visible{outline:2px solid var(--ink);outline-offset
 /* низкий широкий экран (телефон боком): страница растёт по содержанию, кнопка — в углу панели */
 @media (min-width:801px) and (max-height:560px){.pg{min-height:620px}.lead{padding-bottom:48px}.badge{width:96px;height:96px;bottom:calc(var(--m) + 16px);left:calc(var(--m) + (100% - 2 * var(--m) - 11 * var(--gut)) * 5 / 12 + 4 * var(--gut) - 112px)}}
 @media (prefers-reduced-motion:reduce){.badge svg.ring{animation:none}.pn canvas{transition:none}}
+/* на телефоне — зона нажатия мелких ссылок больше самой надписи, как на главной */
+@media (pointer:coarse){.top a,.cols a{position:relative}.top a::after,.cols a::after{content:"";position:absolute;inset:-10px -4px}}
 </style>
 <link rel="icon" href="https://ellitinskaaaya-dotcom.github.io/portfolio/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="https://ellitinskaaaya-dotcom.github.io/portfolio/favicon-32.png" sizes="32x32" type="image/png">
