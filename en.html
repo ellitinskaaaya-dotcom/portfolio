@@ -1449,7 +1449,7 @@ let ft=false;addEventListener('scroll',()=>{if(!ft){ft=true;requestAnimationFram
 /* финал: кнопки-услуги летают в панели; их можно таскать и бросать, короткое нажатие — выбрать.
    Выбранное попадает в сообщение по кнопке «Обсудить проект» справа (v5: своих надписей и кнопки в панели нет) */
 (function(){const area=document.querySelector('.ch-a'),go=document.getElementById('goMsg');if(!area||!go)return;
-  const WORDS=['Landing page','Multi-page website','Online store','Copy','Identity','Instagram design','Business cards','Mascot','Support'];
+  const WORDS=['Landing page','Multi-page website','Online store','Identity','Instagram design','Business cards','Support']; /* без «Тексты» и «Маскот» (Елена, 2026-11-14) */
   const C=WORDS.map(w=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=w;b.setAttribute('aria-pressed','false');area.appendChild(b);return{el:b,w,x:0,y:0,vx:0,vy:0,bw:0,bh:0,sel:false,drag:false};});
   let AW=0,AH=0,placed=false,run=false;
   /* 2026-11-13 (Елена): слова разлетаются при наведении. Толкает движение курсора или пальца: чем быстрее провели, тем сильнее разлетаются.
