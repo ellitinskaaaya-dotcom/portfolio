@@ -17,7 +17,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script>try{history.scrollRestoration="manual"}catch(e){}document.documentElement.className+=" js lock"</script>
+<script>try{history.scrollRestoration="manual"}catch(e){}document.documentElement.className+=" js lock ldg";setTimeout(function(){document.documentElement.classList.remove("ldg")},9000)</script>
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Общее для первых экранов по трём референсам. Только серые тона, без фото. */
@@ -890,6 +890,11 @@ html[data-tn="g"] .badge i .hw{color:#0f1419}
 .ld .steps{bottom:calc(58px + var(--lb))}
 /* подсказка под цветком: полупрозрачная, но с контрастом 4,5:1 (проверка axe, 2026-11-14) — было .42 (2,65:1) */
 .cv-hn{opacity:.64}
+
+/* загрузка на айфоне (Елена, 2026-11-14: «всё так же внизу огромная полоска»). Новый Safari не пускает закреплённые слои под свою нижнюю панель,
+   и там просвечивал сайт. Пока идёт загрузка (класс ldg на html), сайт под ней спрятан — под панелью виден только фон бумаги, как у загрузки.
+   Класс снимается, когда загрузка начинает расходиться */
+html.ldg body>*:not(.ld){visibility:hidden}
 </style>
 <style>/* чистовик */.ctl,.tp,.gp,.gov,.cvp,.vbar-w,.gtag,.gh{display:none!important}.zg{outline:0!important}</style>
 <link rel="alternate" hreflang="ru" href="./">
@@ -1267,7 +1272,7 @@ function vxLine(){const r=vx.getBoundingClientRect(),k=r.width/V.w,pts=[],f=[],w
 /* нарисовать линию на холсте кусочками: толщина меняется вдоль неё (wd — толщина у точки j) */
 function strokeLine(T,cut,wd){for(let j=1;j<T.length;j++){const w=wd(j);if(cut[j]||!(w>.05))continue;c2.beginPath();c2.moveTo(T[j-1][0],T[j-1][1]);c2.lineTo(T[j][0],T[j][1]);c2.lineWidth=w;c2.stroke();}}
 function play(){
-  RUN++;document.documentElement.classList.add('lock');scrollTo({top:0,behavior:'instant'});
+  RUN++;document.documentElement.classList.add('lock','ldg');scrollTo({top:0,behavior:'instant'});
   ld.getAnimations({subtree:true}).forEach(a=>a.cancel());vx.getAnimations().forEach(a=>a.cancel());dock.getAnimations({subtree:true}).forEach(a=>a.cancel());
   cvOff();ld.style.visibility='';vxg.removeAttribute('transform');vxg.querySelectorAll('path').forEach(p=>p.removeAttribute('vector-effect'));
   [hwMain,hwFree,hwArrow].forEach(wipe);
@@ -1283,9 +1288,9 @@ function play(){
     ldc.textContent=Math.round(p*100);ldp.textContent=Math.round(p*100)+' %';ld.style.setProperty('--p',(p*100).toFixed(1)+'%');
     const n=Math.min(3,Math.floor(el/WD*4));if(n!==shown){shown=n;if(z!=='3')word(n);st(n);}
     if(!signed&&el>=WD+120){signed=true;if(cur){const old=cur;old.classList.add('out');setTimeout(()=>old.remove(),200);cur=null;}sign();}
-    if(t<1)requestAnimationFrame(tick);else{st(4);later(reduce?0:120,REV[MODE]);}})(t0);
+    if(t<1)requestAnimationFrame(tick);else{st(4);later(reduce?0:120,()=>{document.documentElement.classList.remove('ldg');REV[MODE]();});}})(t0);
 }
-function finish(){ld.classList.add('done');ld.style.visibility='hidden';cvOff();document.documentElement.classList.remove('lock');}
+function finish(){ld.classList.add('done');ld.style.visibility='hidden';cvOff();document.documentElement.classList.remove('lock','ldg');}
 // А «подъём»: вихрь взлетает и уносит загрузку вверх, под ней — сайт
 function revealA(){
   if(reduce){finish();writeHero();return;}
